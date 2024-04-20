@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import { Slot, SplashScreen, Stack, useRouter } from 'expo-router';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 
-import { TamaguiProvider, Theme } from 'tamagui';
+import { TamaguiProvider, Theme, useTheme } from 'tamagui';
 
 import config from '../tamagui.config';
 import { useFonts } from 'expo-font';
 
 const StackLayout = () => {
+
+  const theme = useTheme();
 	const { authState } = useAuth();
 	const router = useRouter();
 

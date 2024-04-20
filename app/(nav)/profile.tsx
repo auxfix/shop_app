@@ -20,8 +20,12 @@ const Page = () => {
 		onLogout!();
 	};
 
-	const onSignInPress = async () => {
-		onLogin!(username, password);
+	const onSignInPressUser = async () => {
+		onLogin!('user', 'user');
+	};
+
+	const onSignInPressAdmin = async () => {
+		onLogin!('admin', 'admin');
 	};
 
 	return (
@@ -53,8 +57,11 @@ const Page = () => {
 				style={styles.inputField}
 			/>
 
-			<TouchableOpacity onPress={onSignInPress} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign in</Text>
+			<TouchableOpacity onPress={onSignInPressUser} style={styles.button}>
+				<Text style={{ color: '#fff' }}>Sign User</Text>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={onSignInPressAdmin} style={styles.button}>
+				<Text style={{ color: '#fff' }}>Sign Admin</Text>
 			</TouchableOpacity>
 		</KeyboardAvoidingView>
         )

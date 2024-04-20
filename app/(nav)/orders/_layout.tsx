@@ -12,6 +12,7 @@ const Layout = () => {
   return (
     <Stack
       screenOptions={{
+        headerShown: false,
         headerStyle: {
           backgroundColor: theme.blue7.get(),
         },
