@@ -1,7 +1,7 @@
 import { DataLayer } from './util.dl';
 
 export interface Cart {
-  id: number;
+  id?: number;
   userId: number;
   productId: number;
   productName: string;

@@ -7,7 +7,7 @@ export class User  {
   role!: string;
 }
 
-export class UsersDataLayerDl {
+export class UsersDl {
     async findAll(): Promise<User[]> {
         const db = await DataLayer.asyncopenDatabase();
         return new Promise((resolve, reject) => {
@@ -27,7 +27,7 @@ export class UsersDataLayerDl {
         });
       }
     
-      async findOne(username: string, password: string): Promise<User> {
+      async findOne(username: string, password: string): Promise<User | null> {
         const db = await DataLayer.asyncopenDatabase();
         return new Promise((resolve, reject) => {
           db.transaction(tx => {

@@ -12,7 +12,7 @@ export interface Order {
 }
 
 export class OrderApi {
-  async addOrder(order: Order): Promise<Order> {
+  static async addOrder(order: Order): Promise<Order> {
     const orderDl = new OrdersDl();
     const orderItemsDl = new OrderItemsDl();
     const cartDl = new CartDl();
@@ -33,19 +33,13 @@ export class OrderApi {
     return newOrder;
   }
 
-  async getAllOrders(): Promise<Order[]> {
+  static async getAllOrders(): Promise<Order[]> {
     const orderDl = new OrdersDl();
 
     return orderDl.findAll();
   }
 
-  async getAllOrder(): Promise<Order[]> {
-    const orderDl = new OrdersDl();
-
-    return orderDl.findAll();
-  }
-
-  async getOrderAndOrderItems(orderId: number): Promise<[Order, OrderItem[]]> {
+  static async getOrderAndOrderItems(orderId: number): Promise<[Order, OrderItem[]]> {
     const orderDl = new OrdersDl();
     const orderItemsDl = new OrderItemsDl();
 
