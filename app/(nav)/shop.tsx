@@ -16,10 +16,10 @@ const Page = () => {
 			<Text style={styles.title}></Text>
             <YStack paddingVertical="$4" space >
                 <ListItem onPress={() => {
-                    router.push({ pathname: '/(nav)/cart/product/1'})
+                    router.push({ pathname: '/(nav)/product', params: { id: 1}})
                  }} hoverTheme pressTheme icon={Sun} title="Product 1" subTitle="Product 1" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/cart/product/2'})}} hoverTheme pressTheme icon={Sun} title="Product 2" subTitle="Product 2" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/cart/product/3'})}} hoverTheme pressTheme icon={Sun} title="SProduct 3" subTitle="Product 3" />
+                <ListItem onPress={() => {router.push({ pathname: '/(nav)/product', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title="Product 2" subTitle="Product 2" />
+                <ListItem onPress={() => {router.push({ pathname: '/(nav)/product', params: { id: 3}})}} hoverTheme pressTheme icon={Sun} title="SProduct 3" subTitle="Product 3" />
             </YStack>
 		</View>
 	);

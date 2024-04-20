@@ -1,5 +1,8 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAuth } from '../../../context/AuthContext';
+import { StyleSheet, Text, View } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
+import { Button } from 'tamagui';
+import React from 'react';
+import { router } from 'expo-router';
 
 const Page = () => {
 	const { authState, onLogout } = useAuth();
@@ -10,7 +13,10 @@ const Page = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Cart</Text>
+			<Text style={styles.title}>We will deliver it soon</Text>
+			<Button onPress={() => {
+				router.push('/(nav)/shop')
+			}}>Pay</Button>
 		</View>
 	);
 };

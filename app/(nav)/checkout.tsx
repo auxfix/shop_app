@@ -1,5 +1,7 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAuth } from '../../../context/AuthContext';
+import { StyleSheet, Text, View } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
+import { Button } from 'tamagui';
+import { router } from 'expo-router';
 
 const Page = () => {
 	const { authState, onLogout } = useAuth();
@@ -10,10 +12,10 @@ const Page = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Orders</Text>
-			<Text style={styles.title}>Role: {authState?.role}</Text>
-			<Button title="Logout" onPress={onLogoutPressed} />
-			<View style={styles.separator} />
+			<Text style={styles.title}>R u ready to pay?</Text>
+			<Button onPress={() => {
+				router.push('/(nav)/confirm')
+			}}>Pay</Button>
 		</View>
 	);
 };

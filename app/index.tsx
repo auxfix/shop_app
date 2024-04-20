@@ -36,7 +36,7 @@ const Page = () => {
 
 	useEffect(() => {
 		if (authState?.authenticated === true && authState.role === Role.ADMIN) {
-			router.replace('/(nav)/orders/');
+			router.replace('/(nav)/orders');
 		} else if (authState?.authenticated === true && authState.role === Role.USER) {
 			router.replace('/(nav)/shop');
 		}
