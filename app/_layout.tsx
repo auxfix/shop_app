@@ -1,24 +1,30 @@
-import { Stack, useRouter, useSegments } from 'expo-router';
-import { AuthProvider, useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
+import { Slot, SplashScreen, Stack, useRouter } from 'expo-router';
+import { AuthProvider, useAuth } from '../context/AuthContext';
+
 import { TamaguiProvider, Theme } from 'tamagui';
 
 import config from '../tamagui.config';
+import { useFonts } from 'expo-font';
 
 const StackLayout = () => {
 	const { authState } = useAuth();
-	const segments = useSegments();
 	const router = useRouter();
 
-	useEffect(() => {
-		if (!authState?.authenticated) {
-			router.replace('/');
-		} 
-	}, [authState]);
+  const [loaded] = useFonts({
+    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
+    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+  });
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
 
 	return (
 		<Stack>
-			<Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="index" options={{ headerShown: false }} />
 			<Stack.Screen name="(nav)" options={{ headerShown: false }} />
 		</Stack>
 	);

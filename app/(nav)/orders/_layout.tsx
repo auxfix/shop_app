@@ -20,7 +20,7 @@ const Layout = () => {
       <Stack.Screen
         name="index"
         options={{
-          title: 'Shop',
+          title: 'Orders',
           headerLeft: () => <DrawerToggleButton tintColor="#fff" />,
         }}
       />

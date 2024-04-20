@@ -18,7 +18,7 @@ const Layout = () => {
         headerTintColor: '#fff',
       }}>
       <Stack.Screen
-        name="index"
+        name="products"
         options={{
           title: 'Shop',
           headerLeft: () => <DrawerToggleButton tintColor="#fff" />,

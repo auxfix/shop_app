@@ -10,7 +10,7 @@ const Page = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Shop</Text>
+			<Text style={styles.title}></Text>
 			<Text style={styles.title}>Role: {authState?.role}</Text>
 			<Button title="Logout" onPress={onLogoutPressed} />
 			<View style={styles.separator} />

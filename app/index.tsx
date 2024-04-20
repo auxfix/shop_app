@@ -1,7 +1,8 @@
 import React from 'react';
-import { Redirect } from 'expo-router';
+import { Redirect, useRootNavigationState } from 'expo-router';
 
 const Page = () => {
+	
 	return (
 		<Redirect href={'/(nav)/'} />
     );
