@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
-import { Slot, SplashScreen, Stack, useRouter } from 'expo-router';
-import { AuthProvider, useAuth } from '../context/AuthContext';
+import {  Stack } from 'expo-router';
+import { AuthProvider } from '../context/AuthContext';
+import { queryClient } from '../queryClient';
+import { QueryClientProvider } from '@tanstack/react-query';
+
 
 import { TamaguiProvider, Theme, useTheme } from 'tamagui';
 
@@ -27,11 +29,13 @@ const StackLayout = () => {
 const RootLayoutNav = () => {
 	return (
     <TamaguiProvider config={config}>
-      <AuthProvider>
-        <Theme name={'blue'}>
-          <StackLayout />
-        </Theme>
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Theme name={'blue'}>
+            <StackLayout />
+          </Theme>
+        </AuthProvider>
+      </QueryClientProvider>
     </TamaguiProvider>
 	);
 };

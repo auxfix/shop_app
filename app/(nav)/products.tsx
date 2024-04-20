@@ -1,20 +1,36 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import {  StyleSheet, Text, View } from 'react-native';
 import { Sun } from '@tamagui/lucide-icons'
 import { useAuth } from '../../context/AuthContext';
 import { ListItem, YStack } from 'tamagui';
 import { router } from 'expo-router';
+import { useQuery } from '@tanstack/react-query';
+import { ProductsApi } from '~/services/api/products.api';
+import { Product } from '../../services/data/products.dl';
 
 const Page = () => {
 	const { authState, onLogout } = useAuth();
+
+	const {data, isFetching} = useQuery({
+		queryKey: ['products'],
+		queryFn: ProductsApi.getAll,
+	  });
 
 	const onLogoutPressed = () => {
 		onLogout!();
 	};
 
+	if(isFetching) return (
+		<View style={styles.container}>
+			<Text style={styles.title}>Loading...</Text>
+		</View>
+	)
+
+
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Admin product</Text>
             <YStack paddingVertical="$4" space >
+				{data?.map((product: Product) => <ListItem onPress={() => {router.push({ pathname: '/(nav)/editproduct', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title={product.name} key={product.id}/>)}
                 <ListItem onPress={() => {
                     router.push({ pathname: '/(nav)/editproduct', params: { id: 1}})
                  }} hoverTheme pressTheme icon={Sun} title="product 1" subTitle="Order 1" />

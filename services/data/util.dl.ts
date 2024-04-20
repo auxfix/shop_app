@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 import * as SQLite from 'expo-sqlite';
 import { Asset } from 'expo-asset';
-const shopDataBase = require('../assets/db/shop.db');
+const shopDataBase = require('~/assets/db/shop.db');
 
 
 
