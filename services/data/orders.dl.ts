@@ -9,7 +9,7 @@ export interface Order {
   email: string;
 }
 
-export class Orders{
+export class OrdersDl{
    async findAll(): Promise<Order[]> {
     const db = await DataLayer.asyncopenDatabase();
     return new Promise((resolve, reject) => {
@@ -33,6 +33,25 @@ export class Orders{
       });
     });
   }
+  async findByOrderId(orderId: number): Promise<Order> {
+    const db = await DataLayer.asyncopenDatabase();
+    return new Promise((resolve, reject) => {
+      db.transaction(tx => {
+        tx.executeSql(
+          'SELECT * FROM orders WHERE id = ?',
+          [orderId],
+          (_, { rows }) => {
+            const { id, userId, totalPrice, firstName, lastName, email } = rows.item(i);
+            resolve({ id, userId, totalPrice, firstName, lastName, email });
+          },
+          (_, error) => {
+            reject(error);
+            return true;
+          }
+        );
+      });
+    });
+  }
   async addOrder(order: Order): Promise<Order> {
     const db = await DataLayer.asyncopenDatabase();
     const { userId, totalPrice, firstName, lastName, email } = order;
@@ -43,7 +62,7 @@ export class Orders{
           [userId, totalPrice, firstName, lastName, email],
           (_, result) => {
             if (result.rowsAffected > 0) {
-              resolve(order);
+              resolve(result.rows.item(0))
             } else {
               reject(new Error('Failed to make order'));
             }

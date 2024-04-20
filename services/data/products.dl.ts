@@ -9,7 +9,7 @@ export interface Product  {
 
 }
 
-export class ProductService {
+export class ProductServiceDl {
   async findAll(): Promise<Product[]> {
     const db = await DataLayer.asyncopenDatabase();
     return new Promise((resolve, reject) => {

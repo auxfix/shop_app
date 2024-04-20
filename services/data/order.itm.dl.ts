@@ -1,14 +1,14 @@
 import { DataLayer } from './util.dl';
 
 export interface OrderItem {
-    id: number;
+    id?: number;
     orderId: number;
     productId: number;
     productName: string;
 }
 
 
-export class OrderItems {
+export class OrderItemsDl {
    async addOrderItem(orderItem: OrderItem): Promise<OrderItem> {
     const db = await DataLayer.asyncopenDatabase();
     const { orderId, productId, productName } = orderItem;

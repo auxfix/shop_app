@@ -7,7 +7,7 @@ export class User  {
   role!: string;
 }
 
-export class UsersDataLayer {
+export class UsersDataLayerDl {
     async findAll(): Promise<User[]> {
         const db = await DataLayer.asyncopenDatabase();
         return new Promise((resolve, reject) => {
