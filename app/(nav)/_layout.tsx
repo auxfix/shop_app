@@ -92,7 +92,7 @@ const DrawerLayout = () => {
 					redirect={authState?.role !== Role.ADMIN}
 				/>
 				<Drawer.Screen
-					name="confirm"
+					name="editproduct"
 					options={{
 						drawerItemStyle: { height: 0 },
 						headerTitle: 'Confirmation',
@@ -101,7 +101,29 @@ const DrawerLayout = () => {
 							<Ionicons name="cog-outline" size={size} color={color} />
 						)
 					}}
-					redirect={authState?.role !== Role.USER}
+					redirect={authState?.role !== Role.ADMIN}
+				/>
+				<Drawer.Screen
+					name="products"
+					options={{
+						headerTitle: 'Products',
+						drawerLabel: 'Products',
+						drawerIcon: ({ size, color }) => (
+							<Ionicons name="cog-outline" size={size} color={color} />
+						)
+					}}
+					redirect={authState?.role !== Role.ADMIN}
+				/>
+				<Drawer.Screen
+					name="confirm"
+					options={{
+						drawerItemStyle: { height: 0 },
+						headerTitle: 'Confirm',
+						drawerLabel: 'Confirm',
+						drawerIcon: ({ size, color }) => (
+							<Ionicons name="cog-outline" size={size} color={color} />
+						)
+					}}
 				/>
 				<Drawer.Screen
 					name="profile"
