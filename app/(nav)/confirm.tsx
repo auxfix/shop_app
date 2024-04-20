@@ -16,7 +16,7 @@ const Page = () => {
 			<Text style={styles.title}>We will deliver it soon</Text>
 			<Button onPress={() => {
 				router.push('/(nav)/shop')
-			}}>Pay</Button>
+			}}>Back To Shoping</Button>
 		</View>
 	);
 };

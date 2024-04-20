@@ -57,16 +57,6 @@ const DrawerLayout = () => {
 					redirect={authState?.role !== Role.USER}
 				/>
 				<Drawer.Screen
-					name="profile"
-					options={{
-						headerTitle: 'Profile',
-						drawerLabel: 'Profile',
-						drawerIcon: ({ size, color }) => (
-							<Ionicons name="cog-outline" size={size} color={color} />
-						)
-					}}
-				/>
-				<Drawer.Screen
 					name="orders"
 					options={{
 						headerTitle: 'Orders',
@@ -112,6 +102,16 @@ const DrawerLayout = () => {
 						)
 					}}
 					redirect={authState?.role !== Role.USER}
+				/>
+				<Drawer.Screen
+					name="profile"
+					options={{
+						headerTitle: 'Profile',
+						drawerLabel: 'Profile',
+						drawerIcon: ({ size, color }) => (
+							<Ionicons name="cog-outline" size={size} color={color} />
+						)
+					}}
 				/>
 			</Drawer>
 		</GestureHandlerRootView>

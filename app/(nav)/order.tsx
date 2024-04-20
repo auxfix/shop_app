@@ -1,20 +1,15 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAuth } from '../../context/AuthContext';
-
+import { StyleSheet, Text, View } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
+import { Button } from 'tamagui';
+import { useNavigation } from 'expo-router';
 
 const Page = () => {
-	const { authState, onLogout } = useAuth();
-
-	const onLogoutPressed = () => {
-		onLogout!();
-	};
-
+	const { id } = useLocalSearchParams<{ id: string }>();
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>Order Details</Text>
-			<Text style={styles.title}>Role: {authState?.role}</Text>
-			<Button title="Logout" onPress={onLogoutPressed} />
-			<View style={styles.separator} />
+			<Text style={styles.title}>{id}</Text>
 		</View>
 	);
 };

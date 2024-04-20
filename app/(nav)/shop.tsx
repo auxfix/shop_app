@@ -13,7 +13,7 @@ const Page = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}></Text>
+			<Text style={styles.title}>Groucuries</Text>
             <YStack paddingVertical="$4" space >
                 <ListItem onPress={() => {
                     router.push({ pathname: '/(nav)/product', params: { id: 1}})
