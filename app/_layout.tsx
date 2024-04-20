@@ -1,27 +1,39 @@
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
+import { AuthProvider, useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
-import { TamaguiProvider } from 'tamagui';
+import { TamaguiProvider, Theme } from 'tamagui';
 
 import config from '../tamagui.config';
 
-export default function Layout() {
-  const [loaded] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
-  });
+const StackLayout = () => {
+	const { authState } = useAuth();
+	const segments = useSegments();
+	const router = useRouter();
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+	useEffect(() => {
+		if (!authState?.authenticated) {
+			router.replace('/');
+		} 
+	}, [authState]);
 
-  if (!loaded) return null;
+	return (
+		<Stack>
+			<Stack.Screen name="index" options={{ headerShown: false }} />
+			<Stack.Screen name="(nav)" options={{ headerShown: false }} />
+		</Stack>
+	);
+};
 
-  return (
+const RootLayoutNav = () => {
+	return (
     <TamaguiProvider config={config}>
-      <Stack />
+      <AuthProvider>
+        <Theme name={'blue'}>
+          <StackLayout />
+        </Theme>
+      </AuthProvider>
     </TamaguiProvider>
-  );
-}
+	);
+};
+
+export default RootLayoutNav;
