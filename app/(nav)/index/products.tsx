@@ -1,5 +1,8 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { Sun } from '@tamagui/lucide-icons'
 import { useAuth } from '../../../context/AuthContext';
+import { ListItem, YStack } from 'tamagui';
+import { router } from 'expo-router';
 
 const Page = () => {
 	const { authState, onLogout } = useAuth();
@@ -11,9 +14,11 @@ const Page = () => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}></Text>
-			<Text style={styles.title}>Role: {authState?.role}</Text>
-			<Button title="Logout" onPress={onLogoutPressed} />
-			<View style={styles.separator} />
+            <YStack paddingVertical="$4" space >
+                <ListItem onPress={() => {router.push(`product/${1}`)}} hoverTheme pressTheme icon={Sun} title="Product 1" subTitle="Product 1" />
+                <ListItem onPress={() => {router.push(`product/${2}`)}} hoverTheme pressTheme icon={Sun} title="Product 2" subTitle="Product 2" />
+                <ListItem onPress={() => {router.push(`product/${3}`)}} hoverTheme pressTheme icon={Sun} title="SProduct 3" subTitle="Product 3" />
+            </YStack>
 		</View>
 	);
 };
