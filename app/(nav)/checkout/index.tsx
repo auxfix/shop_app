@@ -1,5 +1,5 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 
 const Page = () => {
 	const { authState, onLogout } = useAuth();
@@ -10,7 +10,7 @@ const Page = () => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>Cart</Text>
+			<Text style={styles.title}>Checkout</Text>
 			<Text style={styles.title}>Role: {authState?.role}</Text>
 			<Button title="Logout" onPress={onLogoutPressed} />
 			<View style={styles.separator} />

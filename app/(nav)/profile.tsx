@@ -10,6 +10,7 @@ import {
     View
 } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
+import { router } from 'expo-router';
 
 const Page = () => {
 	const [username, setUsername] = useState('admin');
@@ -18,6 +19,7 @@ const Page = () => {
 
 	const onLogoutPressed = () => {
 		onLogout!();
+		router.replace('/');
 	};
 
 	const onSignInPressUser = async () => {

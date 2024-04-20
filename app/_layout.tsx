@@ -5,27 +5,19 @@ import { AuthProvider, useAuth } from '../context/AuthContext';
 import { TamaguiProvider, Theme, useTheme } from 'tamagui';
 
 import config from '../tamagui.config';
-import { useFonts } from 'expo-font';
 
 const StackLayout = () => {
-
   const theme = useTheme();
-	const { authState } = useAuth();
-	const router = useRouter();
-
-  const [loaded] = useFonts({
-    Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
-    InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
 	return (
-		<Stack>
+		<Stack
+      screenOptions={{
+        headerShown: false,
+        headerStyle: {
+          backgroundColor: theme.blue7.get(),
+        },
+        headerTintColor: '#fff',
+      }}
+    >
       <Stack.Screen name="index" options={{ headerShown: false }} />
 			<Stack.Screen name="(nav)" options={{ headerShown: false }} />
 		</Stack>

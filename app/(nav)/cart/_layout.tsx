@@ -15,10 +15,11 @@ const Layout = () => {
         headerStyle: {
           backgroundColor: theme.blue7.get(),
         },
+        headerShown: false,
         headerTintColor: '#fff',
       }}>
       <Stack.Screen
-        name="products"
+        name="index"
         options={{
           title: 'Shop',
           headerLeft: () => <DrawerToggleButton tintColor="#fff" />,

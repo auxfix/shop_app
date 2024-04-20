@@ -1,6 +1,6 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { Sun } from '@tamagui/lucide-icons'
-import { useAuth } from '../../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { ListItem, YStack } from 'tamagui';
 import { router } from 'expo-router';
 
@@ -15,9 +15,11 @@ const Page = () => {
 		<View style={styles.container}>
 			<Text style={styles.title}></Text>
             <YStack paddingVertical="$4" space >
-                <ListItem onPress={() => {router.push(`product/${1}`)}} hoverTheme pressTheme icon={Sun} title="Product 1" subTitle="Product 1" />
-                <ListItem onPress={() => {router.push(`product/${2}`)}} hoverTheme pressTheme icon={Sun} title="Product 2" subTitle="Product 2" />
-                <ListItem onPress={() => {router.push(`product/${3}`)}} hoverTheme pressTheme icon={Sun} title="SProduct 3" subTitle="Product 3" />
+                <ListItem onPress={() => {
+                    router.push({ pathname: '/(nav)/cart/product/1'})
+                 }} hoverTheme pressTheme icon={Sun} title="Product 1" subTitle="Product 1" />
+                <ListItem onPress={() => {router.push({ pathname: '/(nav)/cart/product/2'})}} hoverTheme pressTheme icon={Sun} title="Product 2" subTitle="Product 2" />
+                <ListItem onPress={() => {router.push({ pathname: '/(nav)/cart/product/3'})}} hoverTheme pressTheme icon={Sun} title="SProduct 3" subTitle="Product 3" />
             </YStack>
 		</View>
 	);
