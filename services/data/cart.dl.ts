@@ -6,7 +6,7 @@ export interface CartItem {
   price?: number
 }
 
-class CartDl {
+export class CartDl {
 
   private cart: CartItem[];
   
@@ -18,11 +18,11 @@ class CartDl {
     return this.cart.filter(ci => ci.userId == userId).slice();
   }
 
-  async addProductToCart(cartItem: CartItem): Promise<CartItem[]> {
+  async addProductToCart(cartItem: CartItem): Promise<CartItem> {
     const lastCartItem = +this.cart.sort((ciA, ciB) => ciA.id! - ciB.id!)[this.cart.length -1].id!;
     cartItem.id = lastCartItem + 1;
     this.cart.push(cartItem);
-    return this.cart.slice();
+    return Object.create(cartItem, {});
   }
 
   async cleanCartByUserId(userId: number): Promise<void> {

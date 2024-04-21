@@ -12,38 +12,42 @@ export interface Order {
 }
 
 export class OrderApi {
-  static async addOrder(order: Order): Promise<Order> {
-    const orderDl = new OrdersDl();
-    const orderItemsDl = new OrderItemsDl();
-    const cartDl = new CartDl();
-    const newOrder = await orderDl.addOrder(order);
-    const cartItems = await cartDl.getCartByUserId(newOrder.userId);
+
+  private ordersDl: OrdersDl;
+  private orderItemsDl: OrderItemsDl;
+  private cartDl: CartDl;
+
+  constructor(ordersDl: OrdersDl, orderItemsDl: OrderItemsDl, cartDl: CartDl) {
+    this.ordersDl = ordersDl;
+    this.orderItemsDl = orderItemsDl;
+    this.cartDl = cartDl;
+  }
+
+  async addOrder(order: Order): Promise<Order> {
+
+    const newOrder = await this.ordersDl.addOrder(order);
+    const cartItems = await this.cartDl.getCartByUserId(newOrder.userId);
 
     for (let i = 0; i < cartItems.length; i++) {
-      await orderItemsDl.addOrderItem({ 
+      await this.orderItemsDl.addOrderItem({ 
         orderId: newOrder.id!,
         productId: cartItems[i].productId!,
         productName: cartItems[i].productName!,
       })
     }
 
-    await cartDl.cleanCartByUserId(order.userId);
+    await this.cartDl.cleanCartByUserId(order.userId);
 
     return newOrder;
   }
 
-  static async getAllOrders(): Promise<Order[]> {
-    const orderDl = new OrdersDl();
-
-    return orderDl.findAll();
+  async getAllOrders(): Promise<Order[]> {
+    return this.ordersDl.findAll();
   }
 
-  static async getOrderAndOrderItems(orderId: number): Promise<[Order, OrderItem[]]> {
-    const orderDl = new OrdersDl();
-    const orderItemsDl = new OrderItemsDl();
-
-    const order = await orderDl.findByOrderId(orderId);
-    const orderItems = await orderItemsDl.listOrderItems(orderId);
+  async getOrderAndOrderItems(orderId: number): Promise<[Order, OrderItem[]]> {
+    const order = await this.ordersDl.findByOrderId(orderId);
+    const orderItems = await this.orderItemsDl.listOrderItems(orderId);
 
     return [order, orderItems]
   }

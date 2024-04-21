@@ -1,13 +1,19 @@
-import { Cart, CartDl } from '../data/cart.dl';
+import { CartDl, CartItem } from "../data/cart.dl";
+
 
 export class CartApi {
-  static async getCartByUserId(userId: number): Promise<Cart[]> {
-    const cartDl = new CartDl();
-    return cartDl.getCartByUserId(userId);
+
+  private cartDl: CartDl;
+
+  constructor(cartDl: CartDl) {
+    this.cartDl = cartDl;
   }
 
-  static async addToCart(product: Cart): Promise<Cart> {
-    const cartDl = new CartDl();
-    return cartDl.addProductToCart(product);
+  async getCartByUserId(userId: number): Promise<CartItem[]> {
+    return this.cartDl.getCartByUserId(userId);
+  }
+
+  async addToCart(product: CartItem): Promise<CartItem> {
+    return this.cartDl.addProductToCart(product);
   }
 }

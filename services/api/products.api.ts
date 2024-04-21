@@ -1,26 +1,21 @@
-import { OrderItem, OrderItemsDl } from '../dat/order.itm.dl';
-import { Product, ProductDl } from '../dat/products.dl';
-
-
+import { Product, ProductDl } from "../data/products.dl";
 
 export class ProductsApi {
-  static async getAll(): Promise<Product[]> {
-    const productDl = new ProductDl();
 
-    const products = await productDl.findAll();
+  constructor(private productsDl: ProductDl) {}
+
+  async getAll(): Promise<Product[]> {
+    const products = await this.productsDl.findAll();
     return products;
   }
 
-  static async getDetails(productId: number): Promise<Product | undefined> {
-    const productDl = new ProductDl();
-
-    const product = await productDl.findProduct(productId)
+  async getDetails(productId: number): Promise<Product | undefined> {
+    const product = await this.productsDl.findProduct(productId)
     return product;
   }
 
-  static async update(product: Product): Promise<Product> {
-    const productDl = new ProductDl();
-    const savedProduct = await productDl.save(product);
+  async update(product: Product): Promise<Product | null> {
+    const savedProduct = await this.productsDl.save(product);
     return savedProduct;
   }
 }

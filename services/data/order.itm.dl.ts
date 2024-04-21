@@ -5,7 +5,7 @@ export interface OrderItem {
     productName: string;
 }
 
-class OrderItemsDl {
+export class OrderItemsDl {
   private ordersItems: OrderItem[];
   
   constructor(){

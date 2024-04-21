@@ -1,9 +1,9 @@
-import { User, UsersDl } from '../dat/users.dl';
+import { User, UsersDl } from "../data/users.dl";
 
 export class UsersApi {
-  static async findUser(username: string, password: string): Promise<User| null> {
-    const userDl = new UsersDl();
+  constructor(private usersDl: UsersDl) {}
 
-    return userDl.findOne(username, password);
+  async findUser(username: string, password: string): Promise<User | null> {
+    return this.usersDl.findOne(username, password);
   }
 }
