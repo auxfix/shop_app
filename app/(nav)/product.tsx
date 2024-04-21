@@ -88,7 +88,7 @@ const Page = () => {
 			  	width={300}
 			  	onPress={() => addToCart(+id)}
 			  >
-				Add to cart
+					Add to cart
 			  </Button>
 		</View>
 	);

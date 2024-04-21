@@ -49,6 +49,8 @@ const Page = () => {
 			userId: USER_ID,
 		})
 
+		queryClient.invalidateQueries({ queryKey: ['cart', 'orders'] });
+
 		router.push('/(nav)/confirm');
 	}
 

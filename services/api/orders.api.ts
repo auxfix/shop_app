@@ -1,5 +1,5 @@
 import { CartDl } from "../data/cart.dl";
-import { OrderItemsDl } from "../data/order.itm.dl";
+import { OrderItem, OrderItemsDl } from "../data/order.itm.dl";
 import { OrdersDl } from "../data/orders.dl";
 
 export interface Order {
@@ -9,6 +9,11 @@ export interface Order {
   firstName: string;
   lastName: string;
   email: string;
+}
+
+export interface OrderDetails {
+  order: Order, 
+  orderItems: OrderItem[],
 }
 
 export class OrderApi {
@@ -45,10 +50,10 @@ export class OrderApi {
     return this.ordersDl.findAll();
   }
 
-  async getOrderAndOrderItems(orderId: number): Promise<[Order, OrderItem[]]> {
+  async getOrderAndOrderItems(orderId: number): Promise<OrderDetails> {
     const order = await this.ordersDl.findByOrderId(orderId);
     const orderItems = await this.orderItemsDl.listOrderItems(orderId);
 
-    return [order, orderItems]
+    return {order, orderItems};
   }
 }

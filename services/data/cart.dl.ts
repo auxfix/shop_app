@@ -22,7 +22,7 @@ export class CartDl {
     const lastCartItem = this.cart.sort((ciA, ciB) => ciA.id! - ciB.id!)[this.cart.length -1]?.id;
     cartItem.id = (lastCartItem ? lastCartItem : 0) + 1;
     this.cart.push(cartItem);
-    return Object.create(cartItem, {});
+    return cartItem;
   }
 
   async cleanCartByUserId(userId: number): Promise<void> {

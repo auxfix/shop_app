@@ -1,45 +1,69 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { Sun } from '@tamagui/lucide-icons'
-import { useAuth } from '../../context/AuthContext';
-import { ListItem, YStack } from 'tamagui';
+import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
 import { router } from 'expo-router';
+import { CartApi } from '~/services/api/cart.api';
+import { CartItem, cartDl } from '~/services/data/cart.dl';
+import { useQuery } from '@tanstack/react-query';
+import { OrderApi } from '~/services/api/orders.api';
+import { orderItemsDl } from '~/services/data/order.itm.dl';
+import { Order, orderDl } from '~/services/data/orders.dl';
+
+
+const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
+
+
+const USER_ID = 1;
 
 const Page = () => {
-	const { authState, onLogout } = useAuth();
+	const theme = useTheme()
 
-	const onLogoutPressed = () => {
-		onLogout!();
-	};
+	const { data, isFetching } = useQuery({
+		queryKey: ['orders'],
+		queryFn: () => orderApi.getAllOrders(),
+	});
 
+	async function toChekout() {
+		router.push('/(nav)/checkout');
+	}
+
+	if(isFetching) return (
+		<View
+			flex={1}
+			flexDirection="column"
+			alignItems='center'
+		>
+			<Text>Loading...</Text>
+		</View>
+	)
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Orders</Text>
-            <YStack paddingVertical="$4" space >
-                <ListItem onPress={() => {
-                    router.push({ pathname: '/(nav)/order', params: { id: 1}})
-                 }} hoverTheme pressTheme icon={Sun} title="order 1" subTitle="Order 1" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/order', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title="order 2" subTitle="order 2" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/order', params: { id: 3}})}} hoverTheme pressTheme icon={Sun} title="order 3" subTitle="order 3" />
-            </YStack>
+		<View
+			flex={1}
+			flexDirection="column"
+			alignItems='center'
+		>
+			<Text fontSize={30} color={'black'}>Orders</Text>
+			<ScrollView
+				width={'100%'}
+				height={'80%'}
+			>	
+				<YStack 
+					flexDirection="column"
+					alignItems='center'
+					paddingVertical="$4" 
+					space
+				>
+					{data?.map((order: Order) => 
+						<ListItem
+							onPress={() => router.push({ pathname: '/(nav)/order', params: { id: order.id!}})}
+							backgroundColor={theme.blue7}
+							key={order.id} 
+							title={order.email}
+							subTitle={order.firstName + ' ' + order.lastName + ' : ' + order.totalPrice}
+						/>)
+					}
+				</YStack>
+			</ScrollView>
 		</View>
 	);
 };
 
 export default Page;
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		flex: 1,
-		justifyContent: 'center'
-	},
-	separator: {
-		height: 1,
-		marginVertical: 30,
-		width: '80%'
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: 'bold'
-	}
-});

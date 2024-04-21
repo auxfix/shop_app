@@ -27,7 +27,7 @@ export class OrdersDl{
     order.id = (lastOrderId ? lastOrderId : 0) + 1;
     this.orders.push(order);
 
-    return Object.create(order, {});
+    return order;
   }
 }
 
