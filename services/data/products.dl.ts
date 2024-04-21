@@ -1,5 +1,3 @@
-import { DataLayer } from './util.dl';
-
 export interface Product  {
   id?: number;
   sku?: string;
@@ -83,11 +81,9 @@ export class ProductDl {
   }
 
   async findAll(): Promise<Product[]> {
-    console.log(this.products.slice())
     return this.products.slice();
   }
   async findProduct(productId: number): Promise<Product | undefined> {
-    console.log(this.products.filter(pr => pr.id == productId)[0])
     return this.products.filter(pr => pr.id == productId)[0];
   }
 
