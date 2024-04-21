@@ -5,8 +5,14 @@ import { OrderApi } from '~/services/api/orders.api';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
 import { useEffect, useState } from 'react';
-import { Cart } from '~/services/dat/cart.dl';
 import { useLoading } from '~/hooks/useLoad';
+
+import { CartItem, cartDl } from '~/services/data/cart.dl';
+import { orderItemsDl } from '~/services/data/order.itm.dl';
+import { orderDl } from '~/services/data/orders.dl';
+
+const cartApi = new CartApi(cartDl);
+const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 
 const USER_ID = 1;
 
@@ -24,7 +30,7 @@ const Page = () => {
 	}, [name, secondName, email]);
 
 
-	const [isFetching, doLoad, data] = useLoading<Cart[]>(async () => CartApi.getCartByUserId(USER_ID));  
+	const [isFetching, doLoad, data] = useLoading<CartItem[]>(async () => cartApi.getCartByUserId(USER_ID));  
 
 	useEffect(() => {
 		setPrice(data?.reduce((acc, cart) => (+cart.price!) + acc, 0)!)
@@ -33,15 +39,13 @@ const Page = () => {
 	async function checkout() {
 		console.log('1')
 		// TODO: Add valid user id
-		await OrderApi.addOrder({
+		await orderApi.addOrder({
 			email: email,
 			firstName: name,
 			lastName: secondName,
 			totalPrice: price,
 			userId: USER_ID,
 		})
-
-		console.log('2')
 
 		router.push('/(nav)/confirm');
 	}

@@ -1,21 +1,23 @@
 
 import { ScrollView, YStack,  View, Text, Card, Paragraph } from 'tamagui'
-import { useAuth } from '../../context/AuthContext';
 import { router } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
-import { Product } from '../../services/dat/products.dl';
 import { useLoading } from '~/hooks/useLoad';
+import { productDl } from '~/services/data/products.dl';
+
+const productApi = new ProductsApi(productDl);
 
 const Page = () => {
-	const [isFetching, doLoad, data] = useLoading(async () => await ProductsApi.getAll());
+	const [isFetching, doLoad, data] = useLoading(async () => await productApi.getAll());
 
 	if(isFetching) return (
 		<View
 				flex={1}
 				flexDirection="column"
 				alignItems='center'
+				width={'100%'}
+				height={'100%'}
 			>
 			<Text>Loading...</Text>
 		</View>

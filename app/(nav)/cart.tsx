@@ -1,9 +1,10 @@
 import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
 import { CartApi } from '~/services/api/cart.api';
-import { Cart } from '~/services/dat/cart.dl';
 import { useLoading } from '~/hooks/useLoad';
+import { CartItem, cartDl } from '~/services/data/cart.dl';
+
+const cartApi = new CartApi(cartDl);
 
 const USER_ID = 1;
 
@@ -11,7 +12,7 @@ const Page = () => {
 	const theme = useTheme()
 	//TODO: add real user id
 
-	const [isFetching, doLoad, data] = useLoading(async () => CartApi.getCartByUserId(USER_ID));
+	const [isFetching, doLoad, data] = useLoading(async () => cartApi.getCartByUserId(USER_ID));
 
 	async function toChekout() {
 		router.push('/(nav)/checkout');
@@ -45,7 +46,7 @@ const Page = () => {
 					paddingVertical="$4" 
 					space
 				>
-					{data?.map((cartItem: Cart) => 
+					{data?.map((cartItem: CartItem) => 
 						<ListItem
 							backgroundColor={theme.blue7}
 							key={cartItem.id} 
