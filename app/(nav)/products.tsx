@@ -2,7 +2,7 @@ import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useT
 import { router, useLocalSearchParams } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import { CartApi } from '~/services/api/cart.api';
-import { Cart } from '~/services/data/cart.dl';
+import { Cart } from '~/services/dat/cart.dl';
 import { useLoading } from '~/hooks/useLoad';
 import { Order, OrderApi } from '~/services/api/orders.api';
 

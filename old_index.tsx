@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import { ScreenContent } from '~/components/ScreenContent';
-import { DataLayer } from '~/services/data/util.dl';
+import { DataLayer } from '~/services/dat/util.dl';
 
 import { YStack, H2, Separator, Theme, Paragraph } from 'tamagui';
 

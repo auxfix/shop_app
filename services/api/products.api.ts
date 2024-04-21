@@ -1,5 +1,5 @@
-import { OrderItem, OrderItemsDl } from '../data/order.itm.dl';
-import { Product, ProductDl } from '../data/products.dl';
+import { OrderItem, OrderItemsDl } from '../dat/order.itm.dl';
+import { Product, ProductDl } from '../dat/products.dl';
 
 
 

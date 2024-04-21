@@ -5,7 +5,7 @@ import { OrderApi } from '~/services/api/orders.api';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
 import { useEffect, useState } from 'react';
-import { Cart } from '~/services/data/cart.dl';
+import { Cart } from '~/services/dat/cart.dl';
 import { useLoading } from '~/hooks/useLoad';
 
 const USER_ID = 1;

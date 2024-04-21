@@ -5,7 +5,7 @@ import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
-import { Product } from '../../services/data/products.dl';
+import { Product } from '../../services/dat/products.dl';
 import { useLoading } from '~/hooks/useLoad';
 
 const Page = () => {

@@ -6,78 +6,102 @@ export interface Product  {
   name: string;
   description: string;
   price: number;
-
+  img: string;
 }
 
 export class ProductDl {
-  async findAll(): Promise<Product[]> {
-    const db = await DataLayer.asyncopenDatabase();
-    return new Promise((resolve, reject) => {
-      db.transaction(tx => {
-        tx.executeSql(
-          'SELECT * FROM products',
-          [],
-          (_, { rows }) => {
-            const products: Product[] = [];
-            for (let i = 0; i < rows.length; i++) {
-              const { id, sku, name, description, price } = rows.item(i);
-              products.push({ id, sku, name, description, price });
-            }
-            resolve(products);
-          },
-          (_, error) => {
-            reject(error);
-            return true;
-          }
-        );
-      });
-    });
-  }
-  async findProduct(productId: number): Promise<Product | undefined> {
-    const db = await DataLayer.asyncopenDatabase();
-    return new Promise((resolve, reject) => {
-      db.transaction(tx => {
-        tx.executeSql(
-          'SELECT * FROM products WHERE id = ?',
-          [productId],
-          (_, { rows }) => {
-            if (rows.length === 1) {
-              const { id, sku, name, description, price } = rows.item(0);
-              resolve({ id, sku, name, description, price });
-            } else {
-              resolve(undefined);
-            }
-          },
-          (_, error) => {
-            reject(error);
-            return true;
-          }
-        );
-      });
-    });
+
+  private products: Product[];
+  
+  constructor(){
+    this.products = [
+      {
+        id: 1,
+        sku: "SKU001",
+        name: "Apple",
+        description: "Fresh red apple",
+        price: 1.50,
+        img: "https://example.com/apple.jpg"
+      },
+      {
+        id: 2,
+        sku: "SKU002",
+        name: "Banana",
+        description: "Ripe banana",
+        price: 0.75,
+        img: "https://example.com/banana.jpg"
+      },
+      {
+        id: 3,
+        sku: "SKU003",
+        name: "Milk",
+        description: "Fresh milk",
+        price: 2.00,
+        img: "https://example.com/milk.jpg"
+      },
+      {
+        id: 4,
+        sku: "SKU004",
+        name: "Bread",
+        description: "Whole wheat bread",
+        price: 1.25,
+        img: "https://example.com/bread.jpg"
+      },
+      {
+        id: 5,
+        sku: "SKU005",
+        name: "Eggs",
+        description: "Farm fresh eggs",
+        price: 2.50,
+        img: "https://example.com/eggs.jpg"
+      },
+      {
+        id: 6,
+        sku: "SKU006",
+        name: "Tomato",
+        description: "Ripe red tomato",
+        price: 0.99,
+        img: "https://example.com/tomato.jpg"
+      },
+      {
+        id: 7,
+        sku: "SKU007",
+        name: "Potato",
+        description: "Fresh potato",
+        price: 1.00,
+        img: "https://example.com/potato.jpg"
+      },
+      {
+        id: 8,
+        sku: "SKU008",
+        name: "Onion",
+        description: "Organic onion",
+        price: 0.75,
+        img: "https://example.com/onion.jpg"
+      }
+    ];
   }
 
-  async save(product: Product): Promise<Product> {
-    const db = await DataLayer.asyncopenDatabase();
-    const {name, description, price, sku } = product;
-    return new Promise((resolve, reject) => {
-      db.transaction(tx => {
-        tx.executeSql(
-          'INSERT INTO products (name, description, price, sku) VALUES (?, ?, ?, ?)',
-          [name, description, price, sku],
-          (_, result) => {
-            if (result.rowsAffected > 0) {
-              resolve(product);
-            } else {
-              reject(new Error('Failed to save product'));
-            }
-          },
-          (_, error) => {
-            reject(error);
-            return true;
-          }
-        );
-      });
-    });
+  async findAll(): Promise<Product[]> {
+    return this.products.slice();
+  }
+  async findProduct(productId: number): Promise<Product | undefined> {
+    return this.products.filter(pr => pr.id === productId)[0];
+  }
+
+  async save(product: Product): Promise<Product| null> {
+    const prToUpDate = this.products.find(pr => pr.id === product.id);
+
+    if (prToUpDate) {
+      const updatedPr = { ...prToUpDate, ...product };
+      const index = this.products.indexOf(prToUpDate);
+      this.products[index] = updatedPr;
+
+      return updatedPr;
+    }
+
+    return null;
   }
 }
+
+export const productDl = new ProductDl();

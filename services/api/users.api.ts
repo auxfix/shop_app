@@ -1,4 +1,4 @@
-import { User, UsersDl } from '../data/users.dl';
+import { User, UsersDl } from '../dat/users.dl';
 
 export class UsersApi {
   static async findUser(username: string, password: string): Promise<User| null> {
