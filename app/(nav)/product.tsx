@@ -2,24 +2,28 @@ import { Text, View, Card, Paragraph, YStack, Button } from 'tamagui';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
-import { useQuery } from '@tanstack/react-query';
 import { CartApi } from '~/services/api/cart.api';
 import { queryClient } from '~/queryClient';
 import { useLoading } from '~/hooks/useLoad';
 
+import {  productDl } from '~/services/data/products.dl';
+import {  cartDl } from '~/services/data/cart.dl';
+
+const cartApi = new CartApi(cartDl);
+const productApi = new ProductsApi(productDl);
+
 const Page = () => {
 	const { id } = useLocalSearchParams<{ id: string }>();
-	const [isLoading, doLoad, data] = useLoading(async () => await ProductsApi.getDetails(+id));
+	const [isLoading, doLoad, data] = useLoading(async () => await productApi.getDetails(+id));
 
 	async function addToCart(id: number) {
 		// TODO: Add valid user id
-		await CartApi.addToCart({
+		await cartApi.addToCart({
 			productName: data?.name,
 			userId: 1,
 			productId: data?.id,
 			price: data?.price
 		})
-		queryClient.invalidateQueries({ queryKey: ['cart'] })
 
 		router.push('/(nav)/cart');
 	}

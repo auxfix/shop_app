@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { useLoading } from '~/hooks/useLoad';
-import { productDl } from '~/services/data/products.dl';
+import { Product, productDl } from '~/services/data/products.dl';
 
 const productApi = new ProductsApi(productDl);
 
