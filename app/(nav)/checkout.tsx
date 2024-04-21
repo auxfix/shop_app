@@ -87,9 +87,9 @@ const Page = () => {
 			  	mt={20}
 			  	width={300}
 				backgroundColor={isValid ? theme.blue7 : theme.red7}
-			  	onPress={() => checkout()}
+			  	onPress={async () => await checkout()}
 			  >
-				Cehckout
+				Ceckout
 			  </Button>
 		</View>
 	);

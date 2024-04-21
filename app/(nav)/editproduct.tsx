@@ -25,7 +25,7 @@ const Page = () => {
 	}, [name, sku, price, description]);
 
 	const { data, isFetching } = useQuery({
-		queryKey: ['editproduct'],
+		queryKey: ['editproduct', id],
 		queryFn: () => productApi.getDetails(+id),
 	});
 
@@ -95,7 +95,7 @@ const Page = () => {
 			  	mt={20}
 			  	width={'90%'}
 				backgroundColor={isValid ? theme.blue7 : theme.red7}
-			  	onPress={() => save()}
+			  	onPress={async () => await save()}
 			  >
 				Save
 			  </Button>
