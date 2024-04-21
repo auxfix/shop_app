@@ -1,40 +1,88 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { useAuth } from '../../context/AuthContext';
-import { Button } from 'tamagui';
-import { router } from 'expo-router';
+import { Text, View, Input, Button, Card, useTheme, Paragraph } from 'tamagui';
+import { router, useLocalSearchParams } from 'expo-router';
+import { CartApi } from '~/services/api/cart.api';
+import { OrderApi } from '~/services/api/orders.api';
+import { useQuery } from '@tanstack/react-query';
+import { queryClient } from '~/queryClient';
+import { useEffect, useState } from 'react';
+
+const USER_ID = 1;
 
 const Page = () => {
-	const { authState, onLogout } = useAuth();
+	//TODO: prepopulate from USER
+	const theme = useTheme();
+	const [isValid, setIsValid] = useState(true);
+	const [name, setName] = useState('user 1 name');
+	const [secondName, setSecondName] = useState('user 1 name');
+	const [email, setEmailName] = useState('mail@mail.com');
+	const [price, setPrice] = useState<number>(0);
 
-	const onLogoutPressed = () => {
-		onLogout!();
-	};
+	useEffect(() => {
+		setIsValid(!!name && !!secondName && !!email)
+	}, [name, secondName, email]);
+
+	const {data, isFetching} = useQuery({
+		queryKey: ['cart'],
+		queryFn: () => CartApi.getCartByUserId(USER_ID),
+	  });
+
+	useEffect(() => {
+		setPrice(data?.reduce((acc, cart) => (+cart.price!) + acc, 0)!)
+	}, [data]);
+
+	async function checkout() {
+		// TODO: Add valid user id
+		await OrderApi.addOrder({
+			email: email,
+			firstName: name,
+			lastName: secondName,
+			totalPrice: price,
+			userId: USER_ID,
+		})
+		queryClient.invalidateQueries({ queryKey: ['cart'] })
+
+		router.push('/(nav)/confirm');
+	}
+
+	if(isFetching) return (
+		<View
+			flex={1}
+			flexDirection="column"
+			alignItems='center'
+		>
+			<Text>Loading...</Text>
+		</View>
+	)
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>R u ready to pay?</Text>
-			<Button onPress={() => {
-				router.push('/(nav)/confirm')
-			}}>Pay</Button>
+		<View
+			flexDirection="column"
+			alignItems='center'
+			justifyContent='center'
+			height={'100%'}
+			width={'100%'}
+		> 
+			  <Card
+			  	width={'90%'}
+				height={200}
+			  	p={10}
+			  >
+				<Input my={5} value={name}  placeholder={`Firts Name`} onChangeText={newText => setName(newText)}/>
+				<Input my={5} value={secondName}  placeholder={`Last Name`} onChangeText={newText => setSecondName(newText)}/>
+				<Input my={5} value={email}  placeholder={`Email`} onChangeText={newText => setEmailName(newText)}/>
+				<Paragraph size={'$4'}>{'PRICE: ' + price}</Paragraph>
+			  </Card>
+			  {!isValid && <Paragraph color={theme.red7} size={'$4'}>Please provide all required data..</Paragraph>}
+			  <Button
+			  	mt={20}
+			  	width={300}
+				backgroundColor={isValid ? theme.blue7 : theme.red7}
+			  	onPress={() => checkout()}
+			  >
+				Cehckout
+			  </Button>
 		</View>
 	);
 };
 
 export default Page;
-
-const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		flex: 1,
-		justifyContent: 'center'
-	},
-	separator: {
-		height: 1,
-		marginVertical: 30,
-		width: '80%'
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: 'bold'
-	}
-});

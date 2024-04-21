@@ -3,7 +3,7 @@ import { OrdersDl } from '../data/orders.dl';
 import { CartDl } from '../data/cart.dl';
 
 export interface Order {
-  id: number;
+  id?: number;
   userId: number;
   totalPrice: number;
   firstName: string;
@@ -17,14 +17,13 @@ export class OrderApi {
     const orderItemsDl = new OrderItemsDl();
     const cartDl = new CartDl();
     const newOrder = await orderDl.addOrder(order);
-
-    const cartItems = await cartDl.getCartByUserId(order.userId);
+    const cartItems = await cartDl.getCartByUserId(newOrder.userId);
 
     for (let i = 0; i < cartItems.length; i++) {
       await orderItemsDl.addOrderItem({ 
-        orderId: newOrder.id,
-        productId: cartItems[i].productId,
-        productName: cartItems[i].productName,
+        orderId: newOrder.id!,
+        productId: cartItems[i].productId!,
+        productName: cartItems[i].productName!,
       })
     }
 

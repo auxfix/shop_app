@@ -11,7 +11,7 @@ const USER_ID = 1;
 const Page = () => {
 	const theme = useTheme()
 	//TODO: add real user id
-	const {data, isFetching} = useQuery({
+	const {data, isLoading} = useQuery({
 		queryKey: ['cart'],
 		queryFn: () => CartApi.getCartByUserId(USER_ID),
 	  });
@@ -22,7 +22,7 @@ const Page = () => {
 
 
 
-	if(isFetching) return (
+	if(isLoading) return (
 		<View
 			flex={1}
 			flexDirection="column"
@@ -58,6 +58,14 @@ const Page = () => {
 					}
 				</YStack>
 			</ScrollView>
+			<Button
+				mt={30}
+				width={300}
+				backgroundColor={theme.blue7}
+				onPress={ () => router.push('/(nav)/shop')}
+			>
+				Back to shoping
+			</Button>
 			<Button
 				my={30}
 				width={300}
