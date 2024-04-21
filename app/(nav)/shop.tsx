@@ -3,13 +3,16 @@ import { ScrollView, YStack,  View, Text, Card, Paragraph } from 'tamagui'
 import { router } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
-import { useLoading } from '~/hooks/useLoad';
 import { Product, productDl } from '~/services/data/products.dl';
+import { useQuery } from '@tanstack/react-query';
 
 const productApi = new ProductsApi(productDl);
 
 const Page = () => {
-	const [isFetching, doLoad, data] = useLoading(async () => await productApi.getAll());
+	const { data, isFetching } = useQuery({
+		queryKey: ['products'],
+		queryFn: () => productApi.getAll(),
+	});
 
 	if(isFetching) return (
 		<View

@@ -10,7 +10,6 @@ export class ProductsApi {
   }
 
   async getDetails(productId: number): Promise<Product | undefined> {
-    console.log(productId)
     const product = await this.productsDl.findProduct(productId)
     return product;
   }

@@ -3,18 +3,21 @@ import { router, useLocalSearchParams } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { CartApi } from '~/services/api/cart.api';
-import { queryClient } from '~/queryClient';
-import { useLoading } from '~/hooks/useLoad';
 
 import {  productDl } from '~/services/data/products.dl';
 import {  cartDl } from '~/services/data/cart.dl';
+import { useQuery } from '@tanstack/react-query';
 
 const cartApi = new CartApi(cartDl);
 const productApi = new ProductsApi(productDl);
 
 const Page = () => {
 	const { id } = useLocalSearchParams<{ id: string }>();
-	const [isLoading, doLoad, data] = useLoading(async () => await productApi.getDetails(+id));
+
+	const { data, isFetching } = useQuery({
+		queryKey: ['products', id],
+		queryFn: () => productApi.getDetails(+id),
+	});
 
 	async function addToCart(id: number) {
 		// TODO: Add valid user id
@@ -28,7 +31,7 @@ const Page = () => {
 		router.push('/(nav)/cart');
 	}
 
-	if(isLoading) return (
+	if(isFetching) return (
 		<View
 			flex={1}
 			flexDirection="column"
