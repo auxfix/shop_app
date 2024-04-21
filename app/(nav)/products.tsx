@@ -1,21 +1,19 @@
 import { Text, View, YStack,  ScrollView, ListItem, useTheme } from 'tamagui';
 import { router } from 'expo-router';
-import { useLoading } from '~/hooks/useLoad';
-import {  cartDl } from '~/services/data/cart.dl';
-import { orderItemsDl } from '~/services/data/order.itm.dl';
-import { orderDl } from '~/services/data/orders.dl';
-import { Order, OrderApi } from '~/services/api/orders.api';
+import { ProductsApi } from '~/services/api/products.api';
+import { Product, productDl } from '~/services/data/products.dl';
+import { useQuery } from '@tanstack/react-query';
 
 
-const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
-
-const USER_ID = 1;
+const productApi = new ProductsApi(productDl);
 
 const Page = () => {
 	const theme = useTheme()
-	//TODO: add real user id
 
-	const [isFetching, doLoad, data] = useLoading(async () => orderApi.getAllOrders());
+	const { data, isFetching } = useQuery({
+		queryKey: ['products'],
+		queryFn: () => productApi.getAll(),
+	});
 
 
 	if(isFetching) return (
@@ -33,7 +31,7 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-			<Text fontSize={30} color={'black'}>Your Cart:</Text>
+			<Text fontSize={30} color={'black'}>Products: </Text>
 			<ScrollView
 				width={'100%'}
 				height={'80%'}
@@ -44,14 +42,15 @@ const Page = () => {
 					paddingVertical="$4" 
 					space
 				>
-					{data?.map((order: Order) => 
-						<ListItem
-							onPress={() => router.navigate({pathname: "/(nav)/editproduct", params: { id: order.id }})}
+					{data?.map((pr: Product) => 
+						(<ListItem
+							onPress={() => router.navigate({pathname: "/(nav)/editproduct", params: { id: pr.id }})}
 							backgroundColor={theme.blue7}
-							key={order.id} 
-							title={order.id}
-							subTitle={order.email}
+							key={pr.id} 
+							title={pr.name}
+							subTitle={'Pice: ' + pr.price}
 						/>)
+					  )
 					}
 				</YStack>
 			</ScrollView>
