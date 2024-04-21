@@ -15,7 +15,7 @@ export class OrderItemsDl {
     return new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(
-          'INSERT INTO order_items (orderId, productId, productName) VALUES (?, ?, ?)',
+          'INSERT INTO order_items (order_id, product_id, product_name) VALUES (?, ?, ?)',
           [orderId, productId, productName],
           (_, result) => {
             if (result.rowsAffected > 0) {
@@ -38,7 +38,7 @@ export class OrderItemsDl {
     return new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(
-          'SELECT * FROM order_items WHERE orderId = ?',
+          'SELECT * FROM order_items WHERE order_id = ?',
           [orderId],
           (_, { rows }) => {
             const orders: OrderItem[] = [];

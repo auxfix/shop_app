@@ -1,9 +1,10 @@
-import {  StyleSheet, Text, View } from 'react-native';
+
 import { Sun } from '@tamagui/lucide-icons'
+import { ScrollView, YStack, ListItem, View, Text, Card, Paragraph } from 'tamagui'
 import { useAuth } from '../../context/AuthContext';
-import { ListItem, YStack } from 'tamagui';
 import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
+import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product } from '../../services/data/products.dl';
 
@@ -20,42 +21,51 @@ const Page = () => {
 	};
 
 	if(isFetching) return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Loading...</Text>
+		<View>
+			<Text>Loading...</Text>
 		</View>
 	)
 
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Admin product</Text>
+		<ScrollView>
+			<Text>Shop the best products:</Text>
             <YStack paddingVertical="$4" space >
-				{data?.map((product: Product) => <ListItem onPress={() => {router.push({ pathname: '/(nav)/editproduct', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title={product.name} key={product.id}/>)}
+				{data?.map((product: Product) => 
+				  <Card
+					elevate
+					width={150}
+					height={260}
+					scale={0.9}
+					hoverStyle={{ scale: 0.925 }}
+					pressStyle={{ scale: 0.975 }}
+					animation={'bouncy'}>
+					<Card.Header p={0}>
+					  <Animated.Image
+						source={{ uri: `https://static.wikia.nocookie.net/fruits-information/images/2/2b/Apple.jpg/revision/latest/scale-to-width-down/1000?cb=20180802112257` }}
+						alt={product.name}
+						style={{ width: 150, height: 200 }}
+					  />
+					</Card.Header>
+					<Card.Footer p={8}>
+					  <YStack>
+						<Text fontSize={20} color={'lightblue'}>
+						  {product.name}
+						</Text>
+						<Paragraph theme={'alt2'}>
+						  {product.name}
+						</Paragraph>
+					  </YStack>
+					</Card.Footer>
+				  </Card>)}
                 <ListItem onPress={() => {
                     router.push({ pathname: '/(nav)/editproduct', params: { id: 1}})
                  }} hoverTheme pressTheme icon={Sun} title="product 1" subTitle="Order 1" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/editproduct', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title="product 2" subTitle="order 2" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/editproduct', params: { id: 3}})}} hoverTheme pressTheme icon={Sun} title="product 3" subTitle="order 3" />
+                
             </YStack>
-		</View>
+		</ScrollView>
 	);
 };
 
 export default Page;
 
-const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		flex: 1,
-		justifyContent: 'center'
-	},
-	separator: {
-		height: 1,
-		marginVertical: 30,
-		width: '80%'
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: 'bold'
-	}
-});

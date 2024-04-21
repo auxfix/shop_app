@@ -58,7 +58,7 @@ export class OrdersDl{
     return new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(
-          'INSERT INTO order_items (userId, totalPrice, firstName, lastName, email) VALUES (?, ?, ?, ?, ?)',
+          'INSERT INTO order_items (user_id, total_price, first_name, last_name, email) VALUES (?, ?, ?, ?, ?)',
           [userId, totalPrice, firstName, lastName, email],
           (_, result) => {
             if (result.rowsAffected > 0) {

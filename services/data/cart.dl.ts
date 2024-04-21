@@ -13,7 +13,7 @@ export class CartDl {
     return new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(
-          'SELECT * FROM cart_items where userId = ?',
+          'SELECT * FROM cart_items where user_id = ?',
           [userId],
           (_, { rows }) => {
             const orders: Cart[] = [];
@@ -37,7 +37,7 @@ export class CartDl {
         const { userId, productId, productName } = cart;
         db.transaction(tx => {
             tx.executeSql(
-                'INSERT INTO order_items (userId, productId, productName ) VALUES (?, ?, ?)',
+                'INSERT INTO order_items (user_id, product_id, product_name ) VALUES (?, ?, ?)',
                 [userId, productId, productName],
                 (_, result) => {
                 if (result.rowsAffected > 0) {

@@ -1,11 +1,13 @@
-import {  StyleSheet, Text, View } from 'react-native';
+
 import { Sun } from '@tamagui/lucide-icons'
+import { ScrollView, YStack, ListItem, View, Text, Card, Paragraph } from 'tamagui'
 import { useAuth } from '../../context/AuthContext';
-import { ListItem, YStack } from 'tamagui';
 import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
+import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product } from '../../services/data/products.dl';
+import { blackA } from '@tamagui/themes';
 
 const Page = () => {
 	const { authState, onLogout } = useAuth();
@@ -20,42 +22,71 @@ const Page = () => {
 	};
 
 	if(isFetching) return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Loading...</Text>
+		<View>
+			<Text>Loading...</Text>
 		</View>
 	)
 
 
 	return (
-		<View style={styles.container}>
-			<Text style={styles.title}>Shop</Text>
-            <YStack paddingVertical="$4" space >
-				{data?.map((product: Product) => <ListItem onPress={() => {router.push({ pathname: '/(nav)/editproduct', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title={product.name} key={product.id}/>)}
-                <ListItem onPress={() => {
-                    router.push({ pathname: '/(nav)/product', params: { id: 1}})
-                 }} hoverTheme pressTheme icon={Sun} title="product 1" subTitle="Order 1" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/product', params: { id: 2}})}} hoverTheme pressTheme icon={Sun} title="product 2" subTitle="order 2" />
-                <ListItem onPress={() => {router.push({ pathname: '/(nav)/product', params: { id: 3}})}} hoverTheme pressTheme icon={Sun} title="product 3" subTitle="order 3" />
+		<View
+			flex={1}
+			flexDirection="column"
+			alignItems='center'
+		>
+			<Text fontSize={30} color={'blackA'}>Shop the best products:</Text>
+			<ScrollView
+				width={'100%'}
+			>	
+            <YStack 
+				flex={1}
+				flexDirection="column"
+				alignItems='center'
+				paddingVertical="$4" 
+				space
+				width={'100%'}
+			>
+				{data?.map((product: Product) => 
+				  <Card
+					onPress={() => {
+						router.push({ pathname: '/(nav)/product', params: { id: product.id}})
+					}}
+					elevate
+					width={300}
+					height={260}
+					scale={0.9}
+					hoverStyle={{ scale: 0.925 }}
+					pressStyle={{ scale: 0.975 }}
+					animation={'bouncy'}>
+					<Card.Header p={0}>
+					  <Animated.Image
+						source={{ uri: `https://static.wikia.nocookie.net/fruits-information/images/2/2b/Apple.jpg/revision/latest/scale-to-width-down/1000?cb=20180802112257` }}
+						alt={product.name}
+						style={{ width: 300, height: 140 }}
+					  />
+					</Card.Header>
+					<Card.Footer p={8}>
+					  <YStack>
+						<Text fontSize={20} color={'lightblue'}>
+						  {product.name}
+						</Text>
+						<Paragraph theme={'alt2'}>
+						  {product.description}
+						</Paragraph>
+						<Paragraph theme={'alt2'}>
+						  {'SKU: ' + product.sku}
+						</Paragraph>
+						<Paragraph theme={'alt2'}>
+						  {'Price: ' + product.price}
+						</Paragraph>
+					  </YStack>
+					</Card.Footer>
+				  </Card>)}
             </YStack>
+			</ScrollView>
 		</View>
 	);
 };
 
 export default Page;
 
-const styles = StyleSheet.create({
-	container: {
-		alignItems: 'center',
-		flex: 1,
-		justifyContent: 'center'
-	},
-	separator: {
-		height: 1,
-		marginVertical: 30,
-		width: '80%'
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: 'bold'
-	}
-});
