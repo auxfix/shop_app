@@ -1,4 +1,8 @@
 import { createContext, useContext, useState } from 'react';
+import { UsersApi } from '~/services/api/users.api';
+import { User, userDl } from '~/services/data/users.dl';
+
+const userApi = new UsersApi(userDl);
 
 export enum Role {
 	ADMIN = 'admin',
@@ -6,7 +10,7 @@ export enum Role {
 }
 
 interface AuthProps {
-	authState: { authenticated: boolean | null; username: string | null; role: Role | null };
+	authState: { authenticated: boolean | null; user: User | null; role: Role };
 	onLogin: (username: string, password: string) => void;
 	onLogout: () => void;
 }
@@ -20,27 +24,22 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: any) => {
 	const [authState, setAuthState] = useState<{
 		authenticated: boolean | null;
-		username: string | null;
+		user: User | null;
 		role: Role | null;
 	}>({
 		authenticated: null,
-		username: null,
-		role: null
+		user: null,
+		role: null,
 	});
 
-	const login = (username: string, password: string) => {
-		if (username === 'admin' && password === 'admin') {
+	const login = async (username: string, password: string) => {
+		const user = await userApi.findUser(username, password);
+		if (user) {
 			setAuthState({
 				authenticated: true,
-				username: username,
-				role: Role.ADMIN
-			});
-		} else if (username === 'user' && password === 'user') {
-			setAuthState({
-				authenticated: true,
-				username: username,
-				role: Role.USER
-			});
+				user: user,
+				role: user.role
+			}); 
 		} else {
 			alert('Invalid username or password!');
 		}
@@ -48,9 +47,9 @@ export const AuthProvider = ({ children }: any) => {
 
 	const logout = async () => {
 		setAuthState({
-			authenticated: false,
-			username: null,
-			role: null
+			authenticated: null,
+			user: null,
+			role: null,
 		});
 	};
 

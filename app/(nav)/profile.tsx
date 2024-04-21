@@ -31,43 +31,15 @@ const Page = () => {
 	};
 
 	return (
-        authState?.authenticated ? (
-            <View style={styles.container}>
-			<Text style={styles.title}>Admin</Text>
+          <View style={styles.container}>
+			<Text style={styles.title}>Profile:</Text>
+			<Text style={styles.title}>Name: {authState?.user?.username}</Text>
+			<Text style={styles.title}>Email: {authState?.user?.email}</Text>
 			<Text style={styles.title}>Role: {authState?.role}</Text>
 			<Button title="Logout" onPress={onLogoutPressed} />
 			<View style={styles.separator} />
-		    </View>
-        ): (
-            <KeyboardAvoidingView
-			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-			style={styles.container}
-		>
-			<Text style={styles.header}>My Shop</Text>
-			<TextInput
-				autoCapitalize="none"
-				placeholder="admin"
-				value={username}
-				onChangeText={setUsername}
-				style={styles.inputField}
-			/>
-			<TextInput
-				placeholder="password"
-				value={password}
-				onChangeText={setPassword}
-				secureTextEntry
-				style={styles.inputField}
-			/>
-
-			<TouchableOpacity onPress={onSignInPressUser} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign User</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={onSignInPressAdmin} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign Admin</Text>
-			</TouchableOpacity>
-		</KeyboardAvoidingView>
+		  </View>
         )
-	);
 };
 
 const styles = StyleSheet.create({

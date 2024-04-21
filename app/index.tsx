@@ -26,8 +26,8 @@ const Page = () => {
 	}
 	}, [loaded]);
 
-	const [username, setUsername] = useState('admin');
-	const [password, setPassword] = useState('admin');
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
 	const { onLogin, authState, onLogout } = useAuth();
 
 	const onLogoutPressed = () => {
@@ -42,12 +42,20 @@ const Page = () => {
 		}
 	}, [authState]);
 
-	const onSignInPressUser = async () => {
-		onLogin!('user', 'user');
+	const onSignInPressUser1 = async () => {
+		onLogin!('john_doe', 'password123');
+	};
+
+	const onSignInPressUser2 = async () => {
+		onLogin!('jane_smith', 'qwerty456');
 	};
 
 	const onSignInPressAdmin = async () => {
-		onLogin!('admin', 'admin');
+		onLogin!('alice_green', 'alicePass789');
+	};
+
+	const onSignInPress = async () => {
+		onLogin!(username, password);
 	};
 
 	if(!loaded) return null;
@@ -60,7 +68,7 @@ const Page = () => {
 			<Text style={styles.header}>My Shop</Text>
 			<TextInput
 				autoCapitalize="none"
-				placeholder="admin"
+				placeholder="username"
 				value={username}
 				onChangeText={setUsername}
 				style={styles.inputField}
@@ -73,11 +81,17 @@ const Page = () => {
 				style={styles.inputField}
 			/>
 
-			<TouchableOpacity onPress={onSignInPressUser} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign User</Text>
+			<TouchableOpacity onPress={onSignInPressUser1} style={styles.button}>
+				<Text style={{ color: '#fff' }}>Sign User 1</Text>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={onSignInPressUser2} style={styles.button}>
+				<Text style={{ color: '#fff' }}>Sign User 2</Text>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={onSignInPressAdmin} style={styles.button}>
 				<Text style={{ color: '#fff' }}>Sign Admin</Text>
+			</TouchableOpacity>
+			<TouchableOpacity onPress={onSignInPress} style={styles.button}>
+				<Text style={{ color: '#fff' }}>Sign </Text>
 			</TouchableOpacity>
 		</KeyboardAvoidingView>)
 };

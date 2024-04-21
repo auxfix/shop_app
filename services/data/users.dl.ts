@@ -1,11 +1,12 @@
+import { Role } from "~/context/AuthContext";
+
 export interface User  {
   id: number;
   username: string;
   password: string;
-  role: string;
+  role: Role;
   email: string;
 }
-
 
 export class UsersDl {
 
@@ -17,21 +18,21 @@ export class UsersDl {
           id: 1,
           username: "john_doe",
           password: "password123",
-          role: "admin",
+          role: 'user',
           email: "john@example.com"
         },
         {
           id: 2,
           username: "jane_smith",
           password: "qwerty456",
-          role: "user",
+          role: 'user',
           email: "jane@example.com"
         },
         {
           id: 3,
           username: "alice_green",
           password: "alicePass789",
-          role: "user",
+          role: 'admin',
           email: "alice@example.com"
         }
       ];
