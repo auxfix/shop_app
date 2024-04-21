@@ -39,7 +39,7 @@ const Page = () => {
 	}, [data]);
 
 	async function checkout() {
-		console.log('1')
+		if(!isValid) return; 
 		// TODO: Add valid user id
 		await orderApi.addOrder({
 			email: email,

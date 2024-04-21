@@ -1,12 +1,12 @@
 import { DataLayer } from './util.dl';
 
 export interface Product  {
-  id: number;
-  sku: string;
-  name: string;
-  description: string;
-  price: number;
-  img: string;
+  id?: number;
+  sku?: string;
+  name?: string;
+  description?: string;
+  price?: number;
+  img?: string;
 }
 
 export class ProductDl {
@@ -83,21 +83,26 @@ export class ProductDl {
   }
 
   async findAll(): Promise<Product[]> {
+    console.log(this.products.slice())
     return this.products.slice();
   }
   async findProduct(productId: number): Promise<Product | undefined> {
-    return this.products.filter(pr => pr.id === productId)[0];
+    console.log(this.products.filter(pr => pr.id == productId)[0])
+    return this.products.filter(pr => pr.id == productId)[0];
   }
 
   async save(product: Product): Promise<Product| null> {
-    const prToUpDate = this.products.find(pr => pr.id === product.id);
+    const indexToUpdate = this.products.findIndex(pr => pr.id == product.id);
+    if (indexToUpdate || (indexToUpdate === 0)) {
 
-    if (prToUpDate) {
-      const updatedPr = { ...prToUpDate, ...product };
-      const index = this.products.indexOf(prToUpDate);
-      this.products[index] = updatedPr;
+      this.products[indexToUpdate].id = product.id;
+      this.products[indexToUpdate].name = product.name;
+      this.products[indexToUpdate].description = product.description;
+      this.products[indexToUpdate].img = product.img;
+      this.products[indexToUpdate].price = product.price;
+      this.products[indexToUpdate].sku = product.sku;
 
-      return updatedPr;
+      return this.products[indexToUpdate];
     }
 
     return null;
