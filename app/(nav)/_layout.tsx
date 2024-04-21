@@ -25,7 +25,7 @@ const DrawerLayout = () => {
 						drawerLabel: 'Shop',
 						headerShown: true,
 						drawerIcon: ({ size, color }: any) => (
-							<Ionicons name="home-outline" size={size} color={color} />
+							<Ionicons name="card-outline" size={size} color={color} />
 						)
 					}}
 					redirect={authState?.role !== Role.USER}
@@ -38,7 +38,7 @@ const DrawerLayout = () => {
 						drawerLabel: 'Cart',
 						headerShown: true,
 						drawerIcon: ({ size, color }: any) => (
-							<Ionicons name="newspaper-outline" size={size} color={color} />
+							<Ionicons name="basket-outline" size={size} color={color} />
 						)
 					}}
 					redirect={authState?.role !== Role.USER}
@@ -62,7 +62,7 @@ const DrawerLayout = () => {
 						headerTitle: 'Orders',
 						drawerLabel: 'Orders',
 						drawerIcon: ({ size, color }) => (
-							<Ionicons name="cog-outline" size={size} color={color} />
+							<Ionicons name="cash-outline" size={size} color={color} />
 						)
 					}}
 					redirect={authState?.role !== Role.ADMIN}
@@ -86,7 +86,7 @@ const DrawerLayout = () => {
 						headerTitle: 'Order',
 						drawerLabel: 'Order',
 						drawerIcon: ({ size, color }) => (
-							<Ionicons name="cog-outline" size={size} color={color} />
+							<Ionicons name="cash-outline" size={size} color={color} />
 						)
 					}}
 					redirect={authState?.role !== Role.ADMIN}
@@ -109,7 +109,7 @@ const DrawerLayout = () => {
 						headerTitle: 'Products',
 						drawerLabel: 'Products',
 						drawerIcon: ({ size, color }) => (
-							<Ionicons name="cog-outline" size={size} color={color} />
+							<Ionicons name="list-outline" size={size} color={color} />
 						)
 					}}
 					redirect={authState?.role !== Role.ADMIN}
@@ -131,7 +131,7 @@ const DrawerLayout = () => {
 						headerTitle: 'Profile',
 						drawerLabel: 'Profile',
 						drawerIcon: ({ size, color }) => (
-							<Ionicons name="cog-outline" size={size} color={color} />
+							<Ionicons name="man-outline" size={size} color={color} />
 						)
 					}}
 				/>
