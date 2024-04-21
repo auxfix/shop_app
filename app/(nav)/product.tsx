@@ -1,4 +1,4 @@
-import { Button, Card, Paragraph, View, YStack, useTheme, Text } from 'tamagui';
+import { Button, Card, Paragraph, View, YStack, Text } from 'tamagui';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
@@ -8,19 +8,14 @@ import { cartDl } from '~/services/data/cart.dl';
 import {  productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
-
-
+import { useAuth } from '~/context/AuthContext';
 
 const cartApi = new CartApi(cartDl);
 const productApi = new ProductsApi(productDl);
 
-const USER_ID = 1;
-
-
 const Page = () => {
 	const { id } = useLocalSearchParams<{ id: string }>();
-	const theme = useTheme()
-	//TODO: add real user id
+	const { authState } = useAuth();
 
 	const { data, isFetching } = useQuery({
 		queryKey: ['products', id],
@@ -39,10 +34,10 @@ const Page = () => {
 		</View>
 	)
 
-	async function addToCart(id: number) {
+	async function addToCart() {
 			await cartApi.addToCart({
 				productName: data?.name,
-				userId: 1,
+				userId: authState?.user?.id,
 				productId: data?.id,
 				price: data?.price
 			})
@@ -94,7 +89,7 @@ const Page = () => {
 			  <Button
 			  	mt={20}
 			  	width={300}
-			  	onPress={() => addToCart(+id)}
+			  	onPress={() => addToCart()}
 			  >
 					Add to cart
 			  </Button>

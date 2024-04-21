@@ -1,23 +1,20 @@
 import { Text, View, Input, Button, Card, useTheme, Paragraph } from 'tamagui';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
 import { useEffect, useState } from 'react';
-import { useLoading } from '~/hooks/useLoad';
 
-import { CartItem, cartDl } from '~/services/data/cart.dl';
+import { cartDl } from '~/services/data/cart.dl';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { orderDl } from '~/services/data/orders.dl';
+import { useAuth } from '~/context/AuthContext';
 
 const cartApi = new CartApi(cartDl);
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 
-const USER_ID = 1;
-
 const Page = () => {
-	//TODO: prepopulate from USER
 	const theme = useTheme();
 	const [isValid, setIsValid] = useState(true);
 	const [name, setName] = useState('user 1 name');
@@ -25,13 +22,15 @@ const Page = () => {
 	const [email, setEmailName] = useState('mail@mail.com');
 	const [price, setPrice] = useState<number>(0);
 
+	const { authState } = useAuth();
+
 	useEffect(() => {
 		setIsValid(!!name && !!secondName && !!email)
 	}, [name, secondName, email]);
 
 	const { data, isFetching } = useQuery({
 		queryKey: ['cart'],
-		queryFn: () => cartApi.getCartByUserId(USER_ID),
+		queryFn: () => cartApi.getCartByUserId(authState?.user?.id!),
 	});
 
 	useEffect(() => {
@@ -40,13 +39,12 @@ const Page = () => {
 
 	async function checkout() {
 		if(!isValid) return; 
-		// TODO: Add valid user id
 		await orderApi.addOrder({
 			email: email,
 			firstName: name,
 			lastName: secondName,
 			totalPrice: price,
-			userId: USER_ID,
+			userId: authState?.user?.id!,
 		})
 
 		queryClient.invalidateQueries({ queryKey: ['cart', 'orders'] });

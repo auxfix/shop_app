@@ -3,18 +3,17 @@ import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { CartItem, cartDl } from '~/services/data/cart.dl';
 import { useQuery } from '@tanstack/react-query';
+import { useAuth } from '~/context/AuthContext';
 
 const cartApi = new CartApi(cartDl);
 
-const USER_ID = 1;
-
 const Page = () => {
 	const theme = useTheme()
-	//TODO: add real user id
+	const { authState } = useAuth();
 
 	const { data, isFetching } = useQuery({
 		queryKey: ['cart'],
-		queryFn: () => cartApi.getCartByUserId(USER_ID),
+		queryFn: () => cartApi.getCartByUserId(authState?.user?.id!),
 	});
 
 	async function toChekout() {
