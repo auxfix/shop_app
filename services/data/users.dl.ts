@@ -3,6 +3,8 @@ import { Role } from "~/context/AuthContext";
 export interface User  {
   id: number;
   username: string;
+  name: string;
+  secondName: string;
   password: string;
   role: Role;
   email: string;
@@ -17,6 +19,8 @@ export class UsersDl {
         {
           id: 1,
           username: "john_doe",
+          name: 'John',
+          secondName: 'Doe',
           password: "password123",
           role: 'user',
           email: "john@example.com"
@@ -25,6 +29,8 @@ export class UsersDl {
           id: 2,
           username: "jane_smith",
           password: "qwerty456",
+          name: 'Jane',
+          secondName: 'Smith',
           role: 'user',
           email: "jane@example.com"
         },
@@ -32,6 +38,8 @@ export class UsersDl {
           id: 3,
           username: "alice_green",
           password: "alicePass789",
+          name: 'Alice',
+          secondName: 'Green',
           role: 'admin',
           email: "alice@example.com"
         }

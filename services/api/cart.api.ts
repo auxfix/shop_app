@@ -10,7 +10,6 @@ export class CartApi {
   }
 
   async getCartByUserId(userId: number): Promise<CartItem[]> {
-    console.log('issues');
     return this.cartDl.getCartByUserId(userId);
   }
 

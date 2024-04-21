@@ -16,10 +16,11 @@ const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 
 const Page = () => {
 	const theme = useTheme();
+
 	const [isValid, setIsValid] = useState(true);
-	const [name, setName] = useState('user 1 name');
-	const [secondName, setSecondName] = useState('user 1 name');
-	const [email, setEmailName] = useState('mail@mail.com');
+	const [name, setName] = useState('');
+	const [secondName, setSecondName] = useState('');
+	const [email, setEmail] = useState('');
 	const [price, setPrice] = useState<number>(0);
 
 	const { authState } = useAuth();
@@ -27,6 +28,12 @@ const Page = () => {
 	useEffect(() => {
 		setIsValid(!!name && !!secondName && !!email)
 	}, [name, secondName, email]);
+
+	useEffect(() => {
+		setName(authState?.user?.name!);
+		setSecondName(authState?.user?.secondName!);
+		setEmail(authState?.user?.email!);
+	},[])
 
 	const { data, isFetching } = useQuery({
 		queryKey: ['cart'],
@@ -77,7 +84,7 @@ const Page = () => {
 			  >
 				<Input my={5} value={name}  placeholder={`Firts Name`} onChangeText={newText => setName(newText)}/>
 				<Input my={5} value={secondName}  placeholder={`Last Name`} onChangeText={newText => setSecondName(newText)}/>
-				<Input my={5} value={email}  placeholder={`Email`} onChangeText={newText => setEmailName(newText)}/>
+				<Input my={5} value={email}  placeholder={`Email`} onChangeText={newText => setEmail(newText)}/>
 				<Paragraph size={'$4'}>{'PRICE: ' + price}</Paragraph>
 			  </Card>
 			  {!isValid && <Paragraph color={theme.red7} size={'$4'}>Please provide all required data..</Paragraph>}
