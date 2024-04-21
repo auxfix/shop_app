@@ -5,6 +5,8 @@ import { OrderApi } from '~/services/api/orders.api';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
 import { useEffect, useState } from 'react';
+import { Cart } from '~/services/data/cart.dl';
+import { useLoading } from '~/hooks/useLoad';
 
 const USER_ID = 1;
 
@@ -21,16 +23,15 @@ const Page = () => {
 		setIsValid(!!name && !!secondName && !!email)
 	}, [name, secondName, email]);
 
-	const {data, isFetching} = useQuery({
-		queryKey: ['cart'],
-		queryFn: () => CartApi.getCartByUserId(USER_ID),
-	  });
+
+	const [isFetching, doLoad, data] = useLoading<Cart[]>(async () => CartApi.getCartByUserId(USER_ID));  
 
 	useEffect(() => {
 		setPrice(data?.reduce((acc, cart) => (+cart.price!) + acc, 0)!)
 	}, [data]);
 
 	async function checkout() {
+		console.log('1')
 		// TODO: Add valid user id
 		await OrderApi.addOrder({
 			email: email,
@@ -39,7 +40,8 @@ const Page = () => {
 			totalPrice: price,
 			userId: USER_ID,
 		})
-		queryClient.invalidateQueries({ queryKey: ['cart'] })
+
+		console.log('2')
 
 		router.push('/(nav)/confirm');
 	}

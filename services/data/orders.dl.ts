@@ -61,11 +61,16 @@ export class OrdersDl{
           'INSERT INTO orders (total_price, first_name, last_name, email) VALUES (?, ?, ?, ?)',
           [totalPrice, firstName, lastName, email],
           (_, result) => {
+            console.log('was here???')
             tx.executeSql(
               'SELECT * FROM orders WHERE id = last_insert_rowid()',
               [],
               (_,result) => {
                   resolve(result.rows.item(0))
+              },
+              (_, error) => {
+                reject(error);
+                return true;
               }
             );
           },

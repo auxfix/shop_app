@@ -6,12 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product } from '../../services/data/products.dl';
+import { useLoading } from '~/hooks/useLoad';
 
 const Page = () => {
-	const {data, isFetching} = useQuery({
-		queryKey: ['products'],
-		queryFn: ProductsApi.getAll,
-	  });
+	const [isFetching, doLoad, data] = useLoading(async () => await ProductsApi.getAll());
 
 	if(isFetching) return (
 		<View

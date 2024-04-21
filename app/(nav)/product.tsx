@@ -5,13 +5,11 @@ import { ProductsApi } from '~/services/api/products.api';
 import { useQuery } from '@tanstack/react-query';
 import { CartApi } from '~/services/api/cart.api';
 import { queryClient } from '~/queryClient';
+import { useLoading } from '~/hooks/useLoad';
 
 const Page = () => {
 	const { id } = useLocalSearchParams<{ id: string }>();
-	const {data, isFetching} = useQuery({
-		queryKey: ['product', id],
-		queryFn: () => ProductsApi.getDetails(+id),
-	  });
+	const [isLoading, doLoad, data] = useLoading(async () => await ProductsApi.getDetails(+id));
 
 	async function addToCart(id: number) {
 		// TODO: Add valid user id
@@ -26,7 +24,7 @@ const Page = () => {
 		router.push('/(nav)/cart');
 	}
 
-	if(isFetching) return (
+	if(isLoading) return (
 		<View
 			flex={1}
 			flexDirection="column"

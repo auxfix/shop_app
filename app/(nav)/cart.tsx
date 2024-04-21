@@ -1,20 +1,17 @@
 import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
 import { router, useLocalSearchParams } from 'expo-router';
-import Animated from 'react-native-reanimated';
-import { ProductsApi } from '~/services/api/products.api';
 import { useQuery } from '@tanstack/react-query';
 import { CartApi } from '~/services/api/cart.api';
 import { Cart } from '~/services/data/cart.dl';
+import { useLoading } from '~/hooks/useLoad';
 
 const USER_ID = 1;
 
 const Page = () => {
 	const theme = useTheme()
 	//TODO: add real user id
-	const {data, isLoading} = useQuery({
-		queryKey: ['cart'],
-		queryFn: () => CartApi.getCartByUserId(USER_ID),
-	  });
+
+	const [isFetching, doLoad, data] = useLoading(async () => CartApi.getCartByUserId(USER_ID));
 
 	async function toChekout() {
 		router.push('/(nav)/checkout');
@@ -22,7 +19,7 @@ const Page = () => {
 
 
 
-	if(isLoading) return (
+	if(isFetching) return (
 		<View
 			flex={1}
 			flexDirection="column"
