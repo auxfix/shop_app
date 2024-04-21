@@ -7,6 +7,7 @@ import { CartApi } from '~/services/api/cart.api';
 import {  productDl } from '~/services/data/products.dl';
 import {  cartDl } from '~/services/data/cart.dl';
 import { useQuery } from '@tanstack/react-query';
+import { queryClient } from '~/queryClient';
 
 const cartApi = new CartApi(cartDl);
 const productApi = new ProductsApi(productDl);
@@ -27,6 +28,8 @@ const Page = () => {
 			productId: data?.id,
 			price: data?.price
 		})
+
+		queryClient.invalidateQueries({ queryKey: ['cart'] });
 
 		router.push('/(nav)/cart');
 	}

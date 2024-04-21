@@ -29,8 +29,10 @@ const Page = () => {
 		setIsValid(!!name && !!secondName && !!email)
 	}, [name, secondName, email]);
 
-
-	const [isFetching, doLoad, data] = useLoading<CartItem[]>(async () => cartApi.getCartByUserId(USER_ID));  
+	const { data, isFetching } = useQuery({
+		queryKey: ['cart'],
+		queryFn: () => cartApi.getCartByUserId(USER_ID),
+	});
 
 	useEffect(() => {
 		setPrice(data?.reduce((acc, cart) => (+cart.price!) + acc, 0)!)

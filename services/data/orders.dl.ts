@@ -23,8 +23,8 @@ export class OrdersDl{
   }
 
   async addOrder(order: Order): Promise<Order> {
-    const lastOrderId = +this.orders.sort((oA, oB) => oA.id! - oB.id!)[this.orders.length -1].id!;
-    order.id = lastOrderId + 1;
+    const lastOrderId = this.orders.sort((oA, oB) => oA.id! - oB.id!)[this.orders.length -1]?.id;
+    order.id = (lastOrderId ? lastOrderId : 0) + 1;
     this.orders.push(order);
 
     return Object.create(order, {});

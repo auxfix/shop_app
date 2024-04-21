@@ -1,6 +1,6 @@
-import { OrderItem, OrderItemsDl } from '../dat/order.itm.dl';
-import { OrdersDl } from '../dat/orders.dl';
-import { CartDl } from '../dat/cart.dl';
+import { CartDl } from "../data/cart.dl";
+import { OrderItemsDl } from "../data/order.itm.dl";
+import { OrdersDl } from "../data/orders.dl";
 
 export interface Order {
   id?: number;

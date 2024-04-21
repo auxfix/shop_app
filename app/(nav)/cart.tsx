@@ -1,8 +1,8 @@
 import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
-import { useLoading } from '~/hooks/useLoad';
 import { CartItem, cartDl } from '~/services/data/cart.dl';
+import { useQuery } from '@tanstack/react-query';
 
 const cartApi = new CartApi(cartDl);
 
@@ -12,13 +12,14 @@ const Page = () => {
 	const theme = useTheme()
 	//TODO: add real user id
 
-	const [isFetching, doLoad, data] = useLoading(async () => cartApi.getCartByUserId(USER_ID));
+	const { data, isFetching } = useQuery({
+		queryKey: ['cart'],
+		queryFn: () => cartApi.getCartByUserId(USER_ID),
+	});
 
 	async function toChekout() {
 		router.push('/(nav)/checkout');
 	}
-
-
 
 	if(isFetching) return (
 		<View
