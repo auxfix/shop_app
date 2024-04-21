@@ -43,8 +43,8 @@ export class OrderItemsDl {
           (_, { rows }) => {
             const orders: OrderItem[] = [];
             for (let i = 0; i < rows.length; i++) {
-              const { id, orderId, productId, productName } = rows.item(i);
-              orders.push({ id, orderId, productId, productName });
+              const { id, order_id, product_id, product_name } = rows.item(i);
+              orders.push({ id, orderId: order_id, productId: product_id, productName: product_name });
             }
             resolve(orders);
           },

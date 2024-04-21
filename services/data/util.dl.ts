@@ -4,11 +4,12 @@ import { Asset } from 'expo-asset';
 const shopDataBase = require('~/assets/db/shop.db');
 
 
-
+let db: SQLite.SQLiteDatabase | null = null;
 
 export class DataLayer {
     static async asyncopenDatabase(): Promise<SQLite.SQLiteDatabase> {
-        if (!(await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite')).exists) {
+      if(db) return db; 
+      if (!(await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite')).exists) {
           await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'SQLite');
         }
         const asset = await Asset.fromModule(shopDataBase).downloadAsync();
@@ -16,6 +17,7 @@ export class DataLayer {
           from: asset.localUri!,
           to: FileSystem.documentDirectory + 'SQLite/myDatabaseName.db',
         });
-        return SQLite.openDatabase('myDatabaseName.db');
+        db = SQLite.openDatabase('myDatabaseName.db');
+        return db;
       }    
 }

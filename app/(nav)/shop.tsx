@@ -14,11 +14,14 @@ const Page = () => {
 	  });
 
 	if(isFetching) return (
-		<View>
+		<View
+				flex={1}
+				flexDirection="column"
+				alignItems='center'
+			>
 			<Text>Loading...</Text>
 		</View>
 	)
-
 
 	return (
 		<View
@@ -26,7 +29,7 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-			<Text fontSize={30} color={'blackA'}>Shop the best products:</Text>
+			<Text fontSize={30} color={'black'}>Shop the best products:</Text>
 			<ScrollView
 				width={'100%'}
 			>	

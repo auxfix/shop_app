@@ -4,6 +4,7 @@ import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { useQuery } from '@tanstack/react-query';
 import { CartApi } from '~/services/api/cart.api';
+import { queryClient } from '~/queryClient';
 
 const Page = () => {
 	const { id } = useLocalSearchParams<{ id: string }>();
@@ -17,19 +18,24 @@ const Page = () => {
 		await CartApi.addToCart({
 			productName: data?.name,
 			userId: 1,
-			productId: data?.id
+			productId: data?.id,
+			price: data?.price
 		})
-
-
+		queryClient.invalidateQueries({ queryKey: ['cart'] })
 
 		router.push('/(nav)/cart');
 	}
 
 	if(isFetching) return (
-		<View>
+		<View
+			flex={1}
+			flexDirection="column"
+			alignItems='center'
+		>
 			<Text>Loading...</Text>
 		</View>
 	)
+
 	return (
 		<View
 			flexDirection="column"

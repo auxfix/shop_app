@@ -5,6 +5,7 @@ export interface Cart {
   userId?: number;
   productId?: number;
   productName?: string;
+  price?: number
 }
 
 export class CartDl {
@@ -18,8 +19,8 @@ export class CartDl {
           (_, { rows }) => {
             const orders: Cart[] = [];
             for (let i = 0; i < rows.length; i++) {
-              const { id, userId, productId, productName } = rows.item(i);
-              orders.push({ id, userId, productId, productName });
+              const { id, user_id, product_id, product_name, price } = rows.item(i);
+              orders.push({ id, userId: user_id, productId: product_id, productName: product_name, price });
             }
             resolve(orders);
           },
@@ -34,11 +35,11 @@ export class CartDl {
   async addProductToCart(cart: Cart): Promise<Cart> {
     const db = await DataLayer.asyncopenDatabase();
     return new Promise((resolve, reject) => {
-        const { userId, productId, productName } = cart;
+        const { userId, productId, productName, price } = cart;
         db.transaction(tx => {
             tx.executeSql(
-                'INSERT INTO cart_items (user_id, product_id, product_name ) VALUES (?, ?, ?)',
-                [userId!, productId!, productName!],
+                'INSERT INTO cart_items (user_id, product_id, product_name, price ) VALUES (?, ?, ?, ?)',
+                [userId!, productId!, productName!, price!],
                 (_, result) => {
                 if (result.rowsAffected > 0) {
                     resolve(result.rows.item(0))
