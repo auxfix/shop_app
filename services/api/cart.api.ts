@@ -1,6 +1,6 @@
 import { Cart, CartDl } from '../data/cart.dl';
 
-export class ProductsApi {
+export class CartApi {
   static async getCartByUserId(userId: number): Promise<Cart[]> {
     const cartDl = new CartDl();
 

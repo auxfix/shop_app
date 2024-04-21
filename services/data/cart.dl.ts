@@ -2,9 +2,9 @@ import { DataLayer } from './util.dl';
 
 export interface Cart {
   id?: number;
-  userId: number;
-  productId: number;
-  productName: string;
+  userId?: number;
+  productId?: number;
+  productName?: string;
 }
 
 export class CartDl {
@@ -37,8 +37,8 @@ export class CartDl {
         const { userId, productId, productName } = cart;
         db.transaction(tx => {
             tx.executeSql(
-                'INSERT INTO order_items (user_id, product_id, product_name ) VALUES (?, ?, ?)',
-                [userId, productId, productName],
+                'INSERT INTO cart_items (user_id, product_id, product_name ) VALUES (?, ?, ?)',
+                [userId!, productId!, productName!],
                 (_, result) => {
                 if (result.rowsAffected > 0) {
                     resolve(result.rows.item(0))

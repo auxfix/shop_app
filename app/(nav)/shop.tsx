@@ -1,25 +1,17 @@
 
-import { Sun } from '@tamagui/lucide-icons'
-import { ScrollView, YStack, ListItem, View, Text, Card, Paragraph } from 'tamagui'
+import { ScrollView, YStack,  View, Text, Card, Paragraph } from 'tamagui'
 import { useAuth } from '../../context/AuthContext';
 import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product } from '../../services/data/products.dl';
-import { blackA } from '@tamagui/themes';
 
 const Page = () => {
-	const { authState, onLogout } = useAuth();
-
 	const {data, isFetching} = useQuery({
 		queryKey: ['products'],
 		queryFn: ProductsApi.getAll,
 	  });
-
-	const onLogoutPressed = () => {
-		onLogout!();
-	};
 
 	if(isFetching) return (
 		<View>
@@ -48,6 +40,7 @@ const Page = () => {
 			>
 				{data?.map((product: Product) => 
 				  <Card
+					key={product.id}
 					onPress={() => {
 						router.push({ pathname: '/(nav)/product', params: { id: product.id}})
 					}}
@@ -82,7 +75,7 @@ const Page = () => {
 					  </YStack>
 					</Card.Footer>
 				  </Card>)}
-            </YStack>
+             </YStack>
 			</ScrollView>
 		</View>
 	);
