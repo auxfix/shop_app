@@ -25,6 +25,8 @@ const Page = () => {
 		router.push('/(nav)/checkout');
 	}
 
+	const isBasketEmpty = !data || data?.length === 0; 
+
 	if(isFetching) return (
 		<View
 			flex={1}
@@ -45,22 +47,36 @@ const Page = () => {
 			<ScrollView
 				width={'100%'}
 				height={'80%'}
-			>	
-				<YStack 
-					flexDirection="column"
-					alignItems='center'
-					paddingVertical="$4" 
-					space
-				>
-					{data?.map((cartItem: CartItem) => 
-						<ListItem
-							backgroundColor={theme.blue5}
-							key={cartItem.id} 
-							title={cartItem.productName}
-							subTitle={'Price: ' + cartItem.price + ' $'}
-						/>)
-					}
-				</YStack>
+				contentContainerStyle={{
+						display: 'flex',	
+						justifyContent:'center',
+						alignItems:'center'
+					}}
+				>	
+				{
+					isBasketEmpty ? (
+						<Text>
+							Please, add some products to the basket...
+						</Text>
+					): (
+						<YStack 
+							flexDirection="column"
+							alignItems='center'
+							paddingVertical="$4" 
+							space
+						>
+							{data?.map((cartItem: CartItem) => 
+								<ListItem
+									backgroundColor={theme.blue5}
+									key={cartItem.id} 
+									title={cartItem.productName}
+									subTitle={'Price: ' + cartItem.price + ' $'}
+								/>)
+							}
+						</YStack>
+					) 
+				}
+
 			</ScrollView>
 			<Separator width={'80%'} marginVertical={15} />
 			<Button
