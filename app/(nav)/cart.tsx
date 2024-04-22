@@ -17,6 +17,11 @@ const Page = () => {
 	});
 
 	async function toChekout() {
+		if(!data || data.length === 0) {
+			alert('Please, add product to cart.');
+			return;	
+		}
+ 
 		router.push('/(nav)/checkout');
 	}
 

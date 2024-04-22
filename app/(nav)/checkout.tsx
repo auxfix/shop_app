@@ -11,6 +11,8 @@ import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { orderDl } from '~/services/data/orders.dl';
 import { useAuth } from '~/context/AuthContext';
 import { Title } from '~/tamagui.config';
+import { validateEmail} from '~/utils/email.validator';
+
 
 const cartApi = new CartApi(cartDl);
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
@@ -23,11 +25,17 @@ const Page = () => {
 	const [secondName, setSecondName] = useState('');
 	const [email, setEmail] = useState('');
 	const [price, setPrice] = useState<number>(0);
+	const [isValidEmail, setIsValidEmail] = useState<boolean>(true);
 
 	const { authState } = useAuth();
 
 	useEffect(() => {
-		setIsValid(!!name && !!secondName && !!email)
+		setIsValid(!!name && 
+			!!secondName && 
+			!!email &&
+			!!validateEmail(email)
+		);
+		setIsValidEmail(!!validateEmail(email));
 	}, [name, secondName, email]);
 
 	useEffect(() => {
@@ -89,7 +97,8 @@ const Page = () => {
 				<Input my={5} value={email}  placeholder={`Email`} onChangeText={newText => setEmail(newText)}/>
 				<Paragraph mt={10} size={'$4'}>{'PRICE: ' + price + ' $'}</Paragraph>
 			  </Card>
-			  {!isValid && <Paragraph color={theme.red7} size={'$4'}>Please provide all required data..</Paragraph>}
+			  {!isValid && <Paragraph color={theme.red7} size={'$4'}>Please provide all required data...</Paragraph>}
+			  {!isValidEmail && <Paragraph color={theme.red7} size={'$4'}>Please provide  a valid email...</Paragraph>}
 			  <Button
 			  	mt={20}
 			  	width={'88%'}
