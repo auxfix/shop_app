@@ -48,7 +48,7 @@ const Page = () => {
 							backgroundColor={theme.blue7}
 							key={pr.id} 
 							title={pr.name}
-							subTitle={'Pice: ' + pr.price}
+							subTitle={'Price: ' + pr.price + '$'}
 						/>)
 					  )
 					}

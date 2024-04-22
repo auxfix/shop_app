@@ -19,7 +19,7 @@ export class ProductDl {
         name: "Apple",
         description: "Fresh red apple",
         price: 1.50,
-        img: "https://example.com/apple.jpg"
+        img: "apple"
       },
       {
         id: 2,
@@ -27,7 +27,7 @@ export class ProductDl {
         name: "Banana",
         description: "Ripe banana",
         price: 0.75,
-        img: "https://example.com/banana.jpg"
+        img: "banana"
       },
       {
         id: 3,
@@ -35,7 +35,7 @@ export class ProductDl {
         name: "Milk",
         description: "Fresh milk",
         price: 2.00,
-        img: "https://example.com/milk.jpg"
+        img: "milk"
       },
       {
         id: 4,
@@ -43,7 +43,7 @@ export class ProductDl {
         name: "Bread",
         description: "Whole wheat bread",
         price: 1.25,
-        img: "https://example.com/bread.jpg"
+        img: "bread"
       },
       {
         id: 5,
@@ -51,7 +51,7 @@ export class ProductDl {
         name: "Eggs",
         description: "Farm fresh eggs",
         price: 2.50,
-        img: "https://example.com/eggs.jpg"
+        img: "eggs"
       },
       {
         id: 6,
@@ -59,7 +59,7 @@ export class ProductDl {
         name: "Tomato",
         description: "Ripe red tomato",
         price: 0.99,
-        img: "https://example.com/tomato.jpg"
+        img: "tomato"
       },
       {
         id: 7,
@@ -67,7 +67,7 @@ export class ProductDl {
         name: "Potato",
         description: "Fresh potato",
         price: 1.00,
-        img: "https://example.com/potato.jpg"
+        img: "potato"
       },
       {
         id: 8,
@@ -75,7 +75,7 @@ export class ProductDl {
         name: "Onion",
         description: "Organic onion",
         price: 0.75,
-        img: "https://example.com/onion.jpg"
+        img: "onion"
       }
     ];
   }

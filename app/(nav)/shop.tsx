@@ -6,6 +6,7 @@ import { ProductsApi } from '~/services/api/products.api';
 import { Product, productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
 import { Title } from '~/tamagui.config';
+import { productImages } from '~/utils/images.utils';
 
 const productApi = new ProductsApi(productDl);
 
@@ -60,7 +61,7 @@ const Page = () => {
 					}}
 					elevate
 					width={300}
-					height={260}
+					height={300}
 					scale={0.9}
 					borderRadius={10}
 					hoverStyle={{ scale: 0.925 }}
@@ -69,9 +70,9 @@ const Page = () => {
 					<Card.Header p={0}>
 					  <Animated.Image
 					    borderRadius={10}
-						source={{ uri: `https://static.wikia.nocookie.net/fruits-information/images/2/2b/Apple.jpg/revision/latest/scale-to-width-down/1000?cb=20180802112257` }}
+						source={productImages[product.img!]}
 						alt={product.name}
-						style={{ width: 300, height: 140 }}
+						style={{ width: 300, height: 180 }}
 					  />
 					</Card.Header>
 					<Card.Footer p={8}>
@@ -86,7 +87,7 @@ const Page = () => {
 						  {'SKU: ' + product.sku}
 						</Paragraph>
 						<Paragraph theme={'alt2'}>
-						  {'Price: ' + product.price}
+						  {'Price: ' + product.price + '$'}
 						</Paragraph>
 					  </YStack>
 					</Card.Footer>

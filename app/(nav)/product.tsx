@@ -9,6 +9,7 @@ import {  productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
 import { useAuth } from '~/context/AuthContext';
+import { productImages } from '~/utils/images.utils';
 
 const cartApi = new CartApi(cartDl);
 const productApi = new ProductsApi(productDl);
@@ -53,19 +54,22 @@ const Page = () => {
 			alignItems='center'
 			justifyContent='center'
 			height={'100%'}>
-			   <Separator width={'80%'} marginVertical={20} />
+			  <Separator width={'80%'} marginVertical={20} />
 			  <Card
 				elevate
 				width={300}
 				height={400}
 				scale={0.9}
+				borderRadius={10}
 				hoverStyle={{ scale: 0.925 }}
 				pressStyle={{ scale: 0.975 }}
-				animation={'bouncy'}>
+				animation={'bouncy'}
+			  >
 				<Card.Header p={0}>
 				  <Animated.Image
-					source={{ uri: `https://static.wikia.nocookie.net/fruits-information/images/2/2b/Apple.jpg/revision/latest/scale-to-width-down/1000?cb=20180802112257` }}
+					source={productImages[data?.img!]}
 					alt={data?.name}
+					borderRadius={10}
 					style={{ width: 300, height: 270 }}
 				  />
 				</Card.Header>
@@ -81,7 +85,7 @@ const Page = () => {
 					  {'SKU: ' + data?.sku}
 					</Paragraph>
 					<Paragraph theme={'alt2'}>
-					  {'Price: ' + data?.price}
+					  {'Price: ' + data?.price + '$'}
 					</Paragraph>
 				  </YStack>
 				</Card.Footer>
