@@ -10,6 +10,7 @@ import { cartDl } from '~/services/data/cart.dl';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { orderDl } from '~/services/data/orders.dl';
 import { useAuth } from '~/context/AuthContext';
+import { Title } from '~/tamagui.config';
 
 const cartApi = new CartApi(cartDl);
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
@@ -77,21 +78,22 @@ const Page = () => {
 			height={'100%'}
 			width={'100%'}
 		> 
+			  <Title mb={20}>Checkout:</Title>
 			  <Card
 			  	width={'90%'}
-				height={200}
+				height={300}
 			  	p={10}
 			  >
 				<Input my={5} value={name}  placeholder={`Firts Name`} onChangeText={newText => setName(newText)}/>
 				<Input my={5} value={secondName}  placeholder={`Last Name`} onChangeText={newText => setSecondName(newText)}/>
 				<Input my={5} value={email}  placeholder={`Email`} onChangeText={newText => setEmail(newText)}/>
-				<Paragraph size={'$4'}>{'PRICE: ' + price}</Paragraph>
+				<Paragraph mt={10} size={'$4'}>{'PRICE: ' + price + ' $'}</Paragraph>
 			  </Card>
 			  {!isValid && <Paragraph color={theme.red7} size={'$4'}>Please provide all required data..</Paragraph>}
 			  <Button
 			  	mt={20}
-			  	width={300}
-				backgroundColor={isValid ? theme.blue7 : theme.red7}
+			  	width={'88%'}
+				backgroundColor={isValid ? theme.blue5 : theme.red7}
 			  	onPress={async () => await checkout()}
 			  >
 				Ceckout

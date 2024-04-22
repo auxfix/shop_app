@@ -52,7 +52,7 @@ const Page = () => {
 							backgroundColor={theme.blue5}
 							key={cartItem.id} 
 							title={cartItem.productName}
-							subTitle={'Price: ' + cartItem.price}
+							subTitle={'Price: ' + cartItem.price + ' $'}
 						/>)
 					}
 				</YStack>
