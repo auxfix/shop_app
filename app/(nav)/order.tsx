@@ -1,4 +1,4 @@
-import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
+import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
@@ -11,6 +11,7 @@ import { queryClient } from '~/queryClient';
 import { OrderApi } from '~/services/api/orders.api';
 import { orderDl } from '~/services/data/orders.dl';
 import { OrderItem, orderItemsDl } from '~/services/data/order.itm.dl';
+import { Title } from '~/tamagui.config';
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 
@@ -40,13 +41,15 @@ const Page = () => {
 			justifyContent='center'
 			height={'100%'}
 		> 
-			  <Card
+			<Card
 				elevate
+				mt={20}
 				width={'95%'}
 				scale={0.9}
 				hoverStyle={{ scale: 0.925 }}
 				pressStyle={{ scale: 0.975 }}
 				animation={'bouncy'}
+				backgroundColor={theme.blue5}
 			>
 				<Card.Footer p={8}>
 				  <YStack>
@@ -65,7 +68,13 @@ const Page = () => {
 				  </YStack>
 				</Card.Footer>
 			  </Card>
-			  <ScrollView
+			  <Title
+				mt={15}
+				animation="quick">
+				Products:
+			  </Title>
+			<Separator width={'80%'} marginVertical={15} />
+			<ScrollView
 				width={'100%'}
 				height={'80%'}
 			>	
@@ -77,13 +86,15 @@ const Page = () => {
 				>
 					{data?.orderItems?.map((oi: OrderItem) => 
 						<ListItem
-							backgroundColor={theme.blue7}
-							key={oi.id} 
+							width={'95%'}
+							backgroundColor={theme.blue5}
+							key={oi.id}
 							title={oi.productName}
 						/>)
 					}
 				</YStack>
 			</ScrollView>
+			<Separator width={'80%'} marginVertical={25} />
 		</View>
 	);
 };

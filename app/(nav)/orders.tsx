@@ -1,4 +1,4 @@
-import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
+import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { CartItem, cartDl } from '~/services/data/cart.dl';
@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { OrderApi } from '~/services/api/orders.api';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { Order, orderDl } from '~/services/data/orders.dl';
+import { Title } from '~/tamagui.config';
 
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
@@ -40,7 +41,12 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-			<Text fontSize={30} color={'black'}>Orders</Text>
+			<Title
+				mt={10}
+				animation="quick">
+				Orders
+			</Title>
+			<Separator width={'80%'} marginVertical={15} />
 			<ScrollView
 				width={'100%'}
 				height={'80%'}
@@ -54,14 +60,15 @@ const Page = () => {
 					{data?.map((order: Order) => 
 						<ListItem
 							onPress={() => router.push({ pathname: '/(nav)/order', params: { id: order.id!}})}
-							backgroundColor={theme.blue7}
+							backgroundColor={theme.blue5}
 							key={order.id} 
 							title={order.email}
-							subTitle={order.firstName + ' ' + order.lastName + ' : ' + order.totalPrice}
+							subTitle={order.firstName + ' ' + order.lastName + ' / Price: ' + order.totalPrice + '$'}
 						/>)
 					}
 				</YStack>
 			</ScrollView>
+			<Separator width={'80%'} marginVertical={15} />
 		</View>
 	);
 };

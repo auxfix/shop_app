@@ -35,7 +35,6 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-
 			<Title
 				mt={10}
 				animation="quick">
@@ -57,7 +56,7 @@ const Page = () => {
 				  <Card
 					key={product.id}
 					onPress={() => {
-						router.push({ pathname: '/(nav)/product', params: { id: product.id}})
+						router.push({ pathname: '/(nav)/product', params: { id: product.id! }})
 					}}
 					elevate
 					width={300}

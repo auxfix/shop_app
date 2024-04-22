@@ -1,8 +1,9 @@
-import { Text, View, YStack,  ScrollView, ListItem, useTheme } from 'tamagui';
+import { Text, View, YStack,  ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 import { router } from 'expo-router';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product, productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
+import { Title } from '~/tamagui.config';
 
 
 const productApi = new ProductsApi(productDl);
@@ -31,7 +32,12 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-			<Text fontSize={30} color={'black'}>Products: </Text>
+			<Title
+				mt={10}
+				animation="quick">
+				Products:
+			</Title>
+			<Separator width={'80%'} marginVertical={15} />
 			<ScrollView
 				width={'100%'}
 				height={'80%'}
@@ -45,7 +51,7 @@ const Page = () => {
 					{data?.map((pr: Product) => 
 						(<ListItem
 							onPress={() => router.navigate({pathname: "/(nav)/editproduct", params: { id: pr.id }})}
-							backgroundColor={theme.blue7}
+							backgroundColor={theme.blue5}
 							key={pr.id} 
 							title={pr.name}
 							subTitle={'Price: ' + pr.price + '$'}
@@ -54,6 +60,7 @@ const Page = () => {
 					}
 				</YStack>
 			</ScrollView>
+			<Separator width={'80%'} marginVertical={25} />
 		</View>
 	);
 };
