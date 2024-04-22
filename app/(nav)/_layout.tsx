@@ -13,7 +13,7 @@ const DrawerLayout = () => {
 			<Drawer	
 				screenOptions={{
 					headerStyle: {
-					  backgroundColor: theme.blue7.get(),
+					  backgroundColor: theme.blue5.get(),
 					},
 					headerTintColor: '#fff',
 				  }}

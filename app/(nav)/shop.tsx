@@ -1,14 +1,16 @@
 
-import { ScrollView, YStack,  View, Text, Card, Paragraph } from 'tamagui'
+import { ScrollView, YStack,  View, Text, Card, Paragraph, Separator, useTheme } from 'tamagui'
 import { router } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product, productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
+import { Title } from '~/tamagui.config';
 
 const productApi = new ProductsApi(productDl);
 
 const Page = () => {
+	const theme = useTheme();
 	const { data, isFetching } = useQuery({
 		queryKey: ['products'],
 		queryFn: () => productApi.getAll(),
@@ -32,7 +34,13 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-			<Text fontSize={30} color={'black'}>Shop the best products:</Text>
+
+			<Title
+				mt={10}
+				animation="quick">
+				Buy the best products:
+			</Title>
+			<Separator width={'80%'} marginVertical={15} />
 			<ScrollView
 				width={'100%'}
 			>	
@@ -54,11 +62,13 @@ const Page = () => {
 					width={300}
 					height={260}
 					scale={0.9}
+					borderRadius={10}
 					hoverStyle={{ scale: 0.925 }}
 					pressStyle={{ scale: 0.975 }}
 					animation={'bouncy'}>
 					<Card.Header p={0}>
 					  <Animated.Image
+					    borderRadius={10}
 						source={{ uri: `https://static.wikia.nocookie.net/fruits-information/images/2/2b/Apple.jpg/revision/latest/scale-to-width-down/1000?cb=20180802112257` }}
 						alt={product.name}
 						style={{ width: 300, height: 140 }}
@@ -83,6 +93,7 @@ const Page = () => {
 				  </Card>)}
              </YStack>
 			</ScrollView>
+			<Separator width={'80%'} marginVertical={15} />
 		</View>
 	);
 };

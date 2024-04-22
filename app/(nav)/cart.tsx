@@ -1,4 +1,4 @@
-import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme } from 'tamagui';
+import { Text, View, Card, Paragraph, YStack, Button, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { CartItem, cartDl } from '~/services/data/cart.dl';
@@ -35,7 +35,8 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 		>
-			<Text fontSize={30} color={'black'}>Your Cart:</Text>
+			<Text pt={10} fontSize={30} color={'black'}>Your Cart:</Text>
+			<Separator width={'80%'} marginVertical={15} />
 			<ScrollView
 				width={'100%'}
 				height={'80%'}
@@ -48,7 +49,7 @@ const Page = () => {
 				>
 					{data?.map((cartItem: CartItem) => 
 						<ListItem
-							backgroundColor={theme.blue7}
+							backgroundColor={theme.blue5}
 							key={cartItem.id} 
 							title={cartItem.productName}
 							subTitle={'Price: ' + cartItem.price}
@@ -56,10 +57,11 @@ const Page = () => {
 					}
 				</YStack>
 			</ScrollView>
+			<Separator width={'80%'} marginVertical={15} />
 			<Button
 				mt={30}
 				width={300}
-				backgroundColor={theme.blue7}
+				backgroundColor={theme.blue5}
 				onPress={ () => router.push('/(nav)/shop')}
 			>
 				Back to shoping
@@ -67,7 +69,7 @@ const Page = () => {
 			<Button
 				my={30}
 				width={300}
-				backgroundColor={theme.blue7}
+				backgroundColor={theme.blue5}
 				onPress={ () => toChekout()}
 			>
 				Checkout

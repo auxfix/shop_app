@@ -1,4 +1,4 @@
-import { Button, Card, Paragraph, View, YStack, Text } from 'tamagui';
+import { Button, Card, Paragraph, View, YStack, Text, Separator } from 'tamagui';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
@@ -52,8 +52,8 @@ const Page = () => {
 			flexDirection="column"
 			alignItems='center'
 			justifyContent='center'
-			height={'100%'}
-		> 
+			height={'100%'}>
+			   <Separator width={'80%'} marginVertical={20} />
 			  <Card
 				elevate
 				width={300}
@@ -86,12 +86,20 @@ const Page = () => {
 				  </YStack>
 				</Card.Footer>
 			  </Card>
+			  <Separator width={'80%'} marginVertical={20} />
 			  <Button
 			  	mt={20}
 			  	width={300}
 			  	onPress={() => addToCart()}
 			  >
 					Add to cart
+			  </Button>
+			  <Button
+			  	mt={20}
+			  	width={300}
+			  	onPress={() => router.push('/(nav)/shop')}
+			  >
+					Back
 			  </Button>
 		</View>
 	);
