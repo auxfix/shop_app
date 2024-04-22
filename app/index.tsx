@@ -30,18 +30,6 @@ const Page = () => {
 	const [password, setPassword] = useState('');
 	const { onLogin, authState, onLogout } = useAuth();
 
-	const onLogoutPressed = () => {
-		onLogout!();
-	};
-
-	useEffect(() => {
-		if (authState?.authenticated === true && authState.role === Role.ADMIN) {
-			router.push('/(nav)/orders');
-		} else if (authState?.authenticated === true && authState.role === Role.USER) {
-			router.push('/(nav)/shop');
-		}
-	}, [authState]);
-
 	const onSignInPressUser1 = async () => {
 		onLogin!('john_doe', 'password123');
 	};

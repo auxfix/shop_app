@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { createContext, useContext, useState } from 'react';
 import { UsersApi } from '~/services/api/users.api';
 import { User, userDl } from '~/services/data/users.dl';
@@ -39,7 +40,12 @@ export const AuthProvider = ({ children }: any) => {
 				authenticated: true,
 				user: user,
 				role: user.role
-			}); 
+			});
+			if(user.role === Role.USER) {
+				router.push('/(nav)/shop');
+			} else if (user.role === Role.ADMIN) {
+				router.push('/(nav)/orders');
+			}
 		} else {
 			alert('Invalid username or password!');
 		}
