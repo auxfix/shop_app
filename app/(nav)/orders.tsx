@@ -31,6 +31,8 @@ const Page = () => {
 		<Loading />
 	)
 
+	const isOrderListEmpty = !data || data?.length === 0; 
+
 	return (
 		<View
 			flex={1}
@@ -46,23 +48,36 @@ const Page = () => {
 			<ScrollView
 				width={'100%'}
 				height={'80%'}
-			>	
-				<YStack 
-					flexDirection="column"
-					alignItems='center'
-					paddingVertical="$4" 
-					space
-				>
-					{data?.map((order: Order) => 
-						<ListItem
-							onPress={() => router.push({ pathname: '/(nav)/order', params: { id: order.id!}})}
-							backgroundColor={theme.blue5}
-							key={order.id} 
-							title={order.email}
-							subTitle={order.firstName + ' ' + order.lastName + ' / Price: ' + order.totalPrice + '$'}
-						/>)
-					}
-				</YStack>
+				contentContainerStyle={{
+					display: 'flex',	
+					justifyContent:'center',
+					alignItems:'center'
+				}}
+			>
+				{ isOrderListEmpty ? (
+						<Text>
+							No orders so far...
+						</Text>
+					): (
+						<YStack 
+						flexDirection="column"
+						alignItems='center'
+						paddingVertical="$4" 
+						space
+					>
+							{data?.map((order: Order) => 
+								<ListItem
+									onPress={() => router.push({ pathname: '/(nav)/order', params: { id: order.id!}})}
+									backgroundColor={theme.blue5}
+									key={order.id} 
+									title={order.email}
+									subTitle={order.firstName + ' ' + order.lastName + ' / Price: ' + order.totalPrice + '$'}
+								/>)
+							}
+						</YStack>
+					)
+				}	
+
 			</ScrollView>
 			<Separator width={'80%'} marginVertical={15} />
 		</View>
