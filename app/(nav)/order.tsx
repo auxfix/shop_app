@@ -89,7 +89,15 @@ const Page = () => {
 					}
 				</YStack>
 			</ScrollView>
-			<Separator width={'80%'} marginVertical={25} />
+			<Separator width={'80%'} marginTop={25} />
+			<Button
+					my={30}
+					width={'90%'}
+					backgroundColor={theme.blue5}
+					onPress={() => router.push('/(nav)/orders')}
+				>
+					OK
+			</Button>
 		</View>
 	);
 };

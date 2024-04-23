@@ -1,10 +1,10 @@
 import { View, Input, Button, Card, useTheme, Paragraph, Separator } from 'tamagui';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';
 import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { cartDl } from '~/services/data/cart.dl';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
@@ -39,11 +39,13 @@ const Page = () => {
 		setIsValidEmail(!!validateEmail(email));
 	}, [name, secondName, email]);
 
-	useEffect(() => {
-		setName(authState?.user?.name!);
-		setSecondName(authState?.user?.secondName!);
-		setEmail(authState?.user?.email!);
-	},[])
+	useFocusEffect(
+		useCallback(() => {
+		  setName(authState?.user?.name!);
+		  setSecondName(authState?.user?.secondName!);
+		  setEmail(authState?.user?.email!);
+		}, [])
+	);
 
 	const { data, isFetching } = useQuery({
 		queryKey: ['cart'],
@@ -67,6 +69,12 @@ const Page = () => {
 		await queryClient.invalidateQueries({ queryKey: ['cart', 'orders'] });
 
 		router.push('/(nav)/confirm');
+	}
+
+	async function navigateBack() {
+		await queryClient.invalidateQueries({ queryKey: ['cart', 'orders'] });
+
+		router.push('/(nav)/shop');
 	}
 
 	if(isFetching) return (
@@ -128,7 +136,7 @@ const Page = () => {
 			  	mt={20}
 			  	width={'88%'}
 				backgroundColor={theme.blue5}
-			  	onPress={async () => router.push('/(nav)/shop')}
+			  	onPress={navigateBack}
 			  >
 				Cancel
 			  </Button>

@@ -66,6 +66,12 @@ const Page = () => {
 		router.push('/(nav)/products');
 	}
 
+	async function navigateBack() {
+		await queryClient.invalidateQueries({ queryKey: ['products', 'editproduct'] });
+
+		router.push('/(nav)/products')
+	}
+
 	if(isFetching) return (
 		<Loading />
 	)
@@ -137,7 +143,7 @@ const Page = () => {
 					mt={20}
 					width={'90%'}
 					backgroundColor={theme.blue7}
-					onPress={() => router.push('/(nav)/products')}
+					onPress={navigateBack}
 				>
 					Cancel
 				</Button>
