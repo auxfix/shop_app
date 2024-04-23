@@ -16,4 +16,8 @@ export class CartApi {
   async addToCart(product: CartItem): Promise<CartItem> {
     return this.cartDl.addProductToCart(product);
   }
+
+  async cleanCart(userId: number): Promise<void> {
+    return this.cartDl.cleanCartByUserId(userId);
+  }
 }
