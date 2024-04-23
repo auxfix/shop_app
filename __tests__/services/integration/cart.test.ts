@@ -1,5 +1,4 @@
 import { CartItem, cartDl } from '~/services/data/cart.dl';
-
 import { CartApi } from '~/services/api/cart.api';
 
 const cartApi = new CartApi(cartDl);
@@ -14,9 +13,9 @@ const TEST_CART_ITEMS: CartItem[] = [
     userId: USER_ID,
   },
   { 
-    price: 1.2,
+    price: 1.4,
     productId: 1,
-    productName: 'Banana',
+    productName: 'Potato',
     userId: USER_ID,
   }
 ]
