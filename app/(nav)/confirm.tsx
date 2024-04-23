@@ -1,11 +1,15 @@
-import { Button, Card, Paragraph, View, YStack, Text, Separator, SizableText } from 'tamagui';
-import { router, useLocalSearchParams } from 'expo-router';
-import Animated from 'react-native-reanimated';
-import { ProductsApi } from '~/services/api/products.api';
-import { CartApi } from '~/services/api/cart.api';
+import { Button, Paragraph, View,  SizableText } from 'tamagui';
+import { router } from 'expo-router';
+import { queryClient } from '~/queryClient';
 
 
 const Page = () => {
+
+	async function backToShopping() {
+		await queryClient.invalidateQueries({ queryKey: ['cart'] });
+		router.navigate('/(nav)/shop')
+	}
+
 	return (
 		<View
 			flexDirection="column"
@@ -30,7 +34,7 @@ const Page = () => {
 			  <Button
 			  	mt={60}
 			  	width={300}
-			  	onPress={() => router.navigate('/(nav)/shop')}
+			  	onPress={backToShopping}
 			  >
 					Cool!
 			  </Button>

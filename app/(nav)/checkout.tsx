@@ -64,7 +64,7 @@ const Page = () => {
 			userId: authState?.user?.id!,
 		})
 
-		queryClient.invalidateQueries({ queryKey: ['cart', 'orders'] });
+		await queryClient.invalidateQueries({ queryKey: ['cart', 'orders'] });
 
 		router.push('/(nav)/confirm');
 	}
