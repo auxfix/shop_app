@@ -12,6 +12,7 @@ import { orderDl } from '~/services/data/orders.dl';
 import { useAuth } from '~/context/AuthContext';
 import { Title } from '~/tamagui.config';
 import { validateEmail} from '~/utils/email.validator';
+import Loading from '~/components/Loading';
 
 
 const cartApi = new CartApi(cartDl);
@@ -69,13 +70,7 @@ const Page = () => {
 	}
 
 	if(isFetching) return (
-		<View
-			flex={1}
-			flexDirection="column"
-			alignItems='center'
-		>
-			<Text>Loading...</Text>
-		</View>
+		<Loading />
 	)
 
 	return (

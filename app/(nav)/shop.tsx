@@ -1,5 +1,5 @@
 
-import { ScrollView, YStack,  View, Text, Card, Paragraph, Separator, useTheme } from 'tamagui'
+import { ScrollView, YStack,  View, Text, Card, Paragraph, Separator, useTheme, Spinner } from 'tamagui'
 import { router } from 'expo-router';
 import Animated from 'react-native-reanimated';
 import { ProductsApi } from '~/services/api/products.api';
@@ -7,26 +7,18 @@ import { Product, productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
 import { Title } from '~/tamagui.config';
 import { productImages } from '~/utils/images.utils';
+import Loading from '~/components/Loading';
 
 const productApi = new ProductsApi(productDl);
 
 const Page = () => {
-	const theme = useTheme();
 	const { data, isFetching } = useQuery({
 		queryKey: ['products'],
 		queryFn: () => productApi.getAll(),
 	});
 
 	if(isFetching) return (
-		<View
-				flex={1}
-				flexDirection="column"
-				alignItems='center'
-				width={'100%'}
-				height={'100%'}
-			>
-			<Text>Loading...</Text>
-		</View>
+		<Loading />
 	)
 
 	return (

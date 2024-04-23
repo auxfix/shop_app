@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryClient } from '~/queryClient';
 import { useAuth } from '~/context/AuthContext';
 import { productImages } from '~/utils/images.utils';
+import Loading from '~/components/Loading';
 
 const cartApi = new CartApi(cartDl);
 const productApi = new ProductsApi(productDl);
@@ -24,15 +25,7 @@ const Page = () => {
 	});
 
 	if(isFetching) return (
-		<View
-			flex={1}
-			flexDirection="column"
-			alignItems='center'
-			width={'100%'}
-			height={'100%'}
-		>
-			<Text>Loading...</Text>
-		</View>
+		<Loading />
 	)
 
 	async function addToCart() {

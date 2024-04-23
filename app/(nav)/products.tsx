@@ -4,6 +4,7 @@ import { ProductsApi } from '~/services/api/products.api';
 import { Product, productDl } from '~/services/data/products.dl';
 import { useQuery } from '@tanstack/react-query';
 import { Title } from '~/tamagui.config';
+import Loading from '~/components/Loading';
 
 
 const productApi = new ProductsApi(productDl);
@@ -18,13 +19,7 @@ const Page = () => {
 
 
 	if(isFetching) return (
-		<View
-			flex={1}
-			flexDirection="column"
-			alignItems='center'
-		>
-			<Text>Loading...</Text>
-		</View>
+		<Loading />
 	)
 	return (
 		<View

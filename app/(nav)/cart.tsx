@@ -4,6 +4,7 @@ import { CartApi } from '~/services/api/cart.api';
 import { CartItem, cartDl } from '~/services/data/cart.dl';
 import { useQuery } from '@tanstack/react-query';
 import { useAuth } from '~/context/AuthContext';
+import Loading from '~/components/Loading';
 
 const cartApi = new CartApi(cartDl);
 
@@ -28,13 +29,7 @@ const Page = () => {
 	const isBasketEmpty = !data || data?.length === 0; 
 
 	if(isFetching) return (
-		<View
-			flex={1}
-			flexDirection="column"
-			alignItems='center'
-		>
-			<Text>Loading...</Text>
-		</View>
+		<Loading />
 	)
 	return (
 		<View

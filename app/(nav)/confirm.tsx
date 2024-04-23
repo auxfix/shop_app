@@ -17,7 +17,7 @@ const Page = () => {
 				mb={30}
 				color={'fff'}
 			  >
-				Amazing ! 
+				Amazing! 
 			  </SizableText>
 			  <Paragraph
 			    textAlign='center'

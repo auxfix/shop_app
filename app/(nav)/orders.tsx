@@ -7,6 +7,7 @@ import { OrderApi } from '~/services/api/orders.api';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { Order, orderDl } from '~/services/data/orders.dl';
 import { Title } from '~/tamagui.config';
+import Loading from '~/components/Loading';
 
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
@@ -27,14 +28,9 @@ const Page = () => {
 	}
 
 	if(isFetching) return (
-		<View
-			flex={1}
-			flexDirection="column"
-			alignItems='center'
-		>
-			<Text>Loading...</Text>
-		</View>
+		<Loading />
 	)
+
 	return (
 		<View
 			flex={1}
