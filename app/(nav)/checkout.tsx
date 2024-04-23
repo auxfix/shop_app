@@ -1,4 +1,4 @@
-import { View, Input, Button, Card, useTheme, Paragraph } from 'tamagui';
+import { View, Input, Button, Card, useTheme, Paragraph, Separator } from 'tamagui';
 import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';
@@ -84,23 +84,53 @@ const Page = () => {
 			  <Title mb={20}>Checkout:</Title>
 			  <Card
 			  	width={'90%'}
-				height={300}
+				height={280}
 			  	p={10}
 			  >
-				<Input my={5} value={name}  placeholder={`Firts Name`} onChangeText={newText => setName(newText)}/>
-				<Input my={5} value={secondName}  placeholder={`Last Name`} onChangeText={newText => setSecondName(newText)}/>
-				<Input my={5} value={email}  placeholder={`Email`} onChangeText={newText => setEmail(newText)}/>
-				<Paragraph mt={10} size={'$4'}>{'PRICE: ' + price + ' $'}</Paragraph>
+				<Input
+					focusStyle={{borderColor: !name ? theme.red7 : theme.blue7}} 
+					borderColor={!name ? theme.red7 : theme.blue7}  
+					my={5} 
+					value={name}  
+					placeholder={`Firts Name`} 
+					onChangeText={newText => setName(newText)}
+				/>
+				<Input
+					focusStyle={{borderColor: !secondName ? theme.red7 : theme.blue7}} 
+					borderColor={!secondName ? theme.red7 : theme.blue7} 
+					my={5} 
+					value={secondName}  
+					placeholder={`Last Name`} 
+					onChangeText={newText => setSecondName(newText)}
+				/>
+				<Input
+					focusStyle={{borderColor: (!email || !isValidEmail) ? theme.red7 : theme.blue7}} 
+					borderColor={(!email || !isValidEmail) ? theme.red7 : theme.blue7}
+					my={5} 
+					value={email}  
+					placeholder={`Email`} 
+					onChangeText={newText => setEmail(newText)}
+				/>
+				<Separator width={'50%'} marginVertical={15} />
+				<Paragraph mt={10} size={'$4'}>{'PRICE: ' + price + '$'}</Paragraph>
 			  </Card>
-			  {!isValid && <Paragraph color={theme.red7} size={'$4'}>Please provide all required data...</Paragraph>}
-			  {!isValidEmail && <Paragraph color={theme.red7} size={'$4'}>Please provide  a valid email...</Paragraph>}
+			  {!isValid && <Paragraph mt={15} color={theme.red7} size={'$4'}>Please provide all required data...</Paragraph>}
+			  {!isValidEmail && <Paragraph mt={5} color={theme.red7} size={'$4'}>Please provide  a valid email...</Paragraph>}
 			  <Button
 			  	mt={20}
 			  	width={'88%'}
 				backgroundColor={isValid ? theme.blue5 : theme.red7}
 			  	onPress={async () => await checkout()}
 			  >
-				Ceckout
+				Checkout
+			  </Button>
+			  <Button
+			  	mt={20}
+			  	width={'88%'}
+				backgroundColor={theme.blue5}
+			  	onPress={async () => router.push('/(nav)/shop')}
+			  >
+				Cancel
 			  </Button>
 		</View>
 	);
