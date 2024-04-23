@@ -1,4 +1,4 @@
-import { Text, View, Input, Button, Card, useTheme, Paragraph } from 'tamagui';
+import { View, Input, Button, Card, useTheme, Paragraph } from 'tamagui';
 import { router } from 'expo-router';
 import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';

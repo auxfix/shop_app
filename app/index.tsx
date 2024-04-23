@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { Input, Button, H2, useTheme } from 'tamagui';
 import {
-	Text,
 	KeyboardAvoidingView,
 	Platform,
 	StyleSheet,
-	TextInput,
-	TouchableOpacity,
-    Button,
-    View
 } from 'react-native';
-import { Role, useAuth } from '../context/AuthContext';
-import { SplashScreen, router, useRootNavigationState } from 'expo-router';
+import { useAuth } from '../context/AuthContext';
+import { SplashScreen, useRootNavigationState } from 'expo-router';
 import { useFonts } from 'expo-font';
 
 const Page = () => {
+	const theme = useTheme();
 	const rootNavigationState = useRootNavigationState();
+
 	const [loaded] = useFonts({
 		Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
 		InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
@@ -49,38 +47,44 @@ const Page = () => {
 	if(!loaded) return null;
 
 	return (
-            <KeyboardAvoidingView
+        <KeyboardAvoidingView
 			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 			style={styles.container}
-		>
-			<Text style={styles.header}>My Shop</Text>
-			<TextInput
+			>
+			<H2 color={theme.blue4} my={25} textAlign='center'>My Shop</H2>
+			<Input
+				mt={30}
+				backgroundColor="white"
+				color={theme.blue8}
+				placeholderTextColor={theme.blue8}
 				autoCapitalize="none"
 				placeholder="username"
 				value={username}
 				onChangeText={setUsername}
-				style={styles.inputField}
 			/>
-			<TextInput
+			<Input
+				my={10}
+				backgroundColor="white"
 				placeholder="password"
+				color={theme.blue8}
+				placeholderTextColor={theme.blue8}
 				value={password}
 				onChangeText={setPassword}
 				secureTextEntry
-				style={styles.inputField}
 			/>
 
-			<TouchableOpacity onPress={onSignInPressUser1} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign User 1</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={onSignInPressUser2} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign User 2</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={onSignInPressAdmin} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign Admin</Text>
-			</TouchableOpacity>
-			<TouchableOpacity onPress={onSignInPress} style={styles.button}>
-				<Text style={{ color: '#fff' }}>Sign </Text>
-			</TouchableOpacity>
+			<Button mt={55} onPress={onSignInPressUser1}>
+				Sign in User 1
+			</Button>
+			<Button mt={15} onPress={onSignInPressUser2}>
+			    Sign in User 2
+			</Button>
+			<Button mt={15} onPress={onSignInPressAdmin}>
+				Sign in Admin
+			</Button>
+			<Button mt={15} onPress={onSignInPress}>
+			    Sign in
+			</Button>
 		</KeyboardAvoidingView>)
 };
 
@@ -89,37 +93,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		padding: 20,
 		paddingHorizontal: '20%',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
-	header: {
-		fontSize: 30,
-		textAlign: 'center',
-		marginBottom: 40
-	},
-	inputField: {
-		marginVertical: 4,
-		height: 50,
-		borderWidth: 1,
-		borderColor: '#ccc',
-		borderRadius: 4,
-		padding: 10
-	},
-	button: {
-		marginVertical: 15,
-		alignItems: 'center',
-		backgroundColor: '#111233',
-		padding: 12,
-		borderRadius: 4
-	},
-	separator: {
-		height: 1,
-		marginVertical: 30,
-		width: '80%'
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: 'bold'
-	}
 });
 
 export default Page;
