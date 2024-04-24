@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
-import Animated from 'react-native-reanimated';
 import {
   Text,
   View,
@@ -15,15 +14,10 @@ import {
 } from 'tamagui';
 
 import Loading from '~/components/Loading';
-import { queryClient } from '~/queryClient';
-import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';
-import { ProductsApi } from '~/services/api/products.api';
 import { cartDl } from '~/services/data/cart.dl';
 import { OrderItem, orderItemsDl } from '~/services/data/order.itm.dl';
 import { orderDl } from '~/services/data/orders.dl';
-import { productDl } from '~/services/data/products.dl';
-import { Title } from '~/tamagui.config';
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 

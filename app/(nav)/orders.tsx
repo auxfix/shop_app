@@ -1,29 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import {
-  Text,
-  View,
-  Card,
-  Paragraph,
-  YStack,
-  Button,
-  ScrollView,
-  ListItem,
-  useTheme,
-  Separator,
-} from 'tamagui';
+import { Text, View, YStack, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 
 import Loading from '~/components/Loading';
-import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';
-import { CartItem, cartDl } from '~/services/data/cart.dl';
+import { cartDl } from '~/services/data/cart.dl';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { Order, orderDl } from '~/services/data/orders.dl';
 import { Title } from '~/tamagui.config';
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
-
-const USER_ID = 1;
 
 const Page = () => {
   const theme = useTheme();
@@ -32,10 +18,6 @@ const Page = () => {
     queryKey: ['orders'],
     queryFn: () => orderApi.getAllOrders(),
   });
-
-  async function toChekout() {
-    router.push('/(nav)/checkout');
-  }
 
   if (isFetching) return <Loading />;
 

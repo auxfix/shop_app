@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import { Text, View, YStack, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
+import { View, YStack, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 
 import Loading from '~/components/Loading';
 import { ProductsApi } from '~/services/api/products.api';

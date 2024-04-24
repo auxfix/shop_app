@@ -1,17 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
-import {
-  Text,
-  View,
-  Card,
-  Paragraph,
-  YStack,
-  Button,
-  ScrollView,
-  ListItem,
-  useTheme,
-  Separator,
-} from 'tamagui';
+import { Text, View, YStack, Button, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
 
 import Loading from '~/components/Loading';
 import { useAuth } from '~/context/AuthContext';

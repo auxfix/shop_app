@@ -1,17 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
 import Animated from 'react-native-reanimated';
-import {
-  ScrollView,
-  YStack,
-  View,
-  Text,
-  Card,
-  Paragraph,
-  Separator,
-  useTheme,
-  Spinner,
-} from 'tamagui';
+import { ScrollView, YStack, View, Text, Card, Paragraph, Separator } from 'tamagui';
 
 import Loading from '~/components/Loading';
 import { ProductsApi } from '~/services/api/products.api';

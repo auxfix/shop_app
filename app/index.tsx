@@ -23,7 +23,7 @@ const Page = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { onLogin, authState, onLogout } = useAuth();
+  const { onLogin } = useAuth();
 
   const onSignInPressUser1 = async () => {
     onLogin!('john_doe', 'password123');
