@@ -1,10 +1,11 @@
-import { Text, View, YStack, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
+import { useQuery } from '@tanstack/react-query';
 import { router } from 'expo-router';
+import { Text, View, YStack, ScrollView, ListItem, useTheme, Separator } from 'tamagui';
+
+import Loading from '~/components/Loading';
 import { ProductsApi } from '~/services/api/products.api';
 import { Product, productDl } from '~/services/data/products.dl';
-import { useQuery } from '@tanstack/react-query';
 import { Title } from '~/tamagui.config';
-import Loading from '~/components/Loading';
 
 const productApi = new ProductsApi(productDl);
 
@@ -22,8 +23,8 @@ const Page = () => {
       <Title mt={10} animation="quick">
         Products:
       </Title>
-      <Separator width={'80%'} marginVertical={15} />
-      <ScrollView width={'100%'} height={'80%'}>
+      <Separator width="80%" marginVertical={15} />
+      <ScrollView width="100%" height="80%">
         <YStack flexDirection="column" alignItems="center" paddingVertical="$4" space>
           {data?.map((pr: Product) => (
             <ListItem
@@ -38,7 +39,7 @@ const Page = () => {
           ))}
         </YStack>
       </ScrollView>
-      <Separator width={'80%'} marginVertical={25} />
+      <Separator width="80%" marginVertical={25} />
     </View>
   );
 };

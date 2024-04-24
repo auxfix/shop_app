@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import { router } from 'expo-router';
 import {
   Text,
   View,
@@ -10,12 +12,11 @@ import {
   useTheme,
   Separator,
 } from 'tamagui';
-import { router } from 'expo-router';
+
+import Loading from '~/components/Loading';
+import { useAuth } from '~/context/AuthContext';
 import { CartApi } from '~/services/api/cart.api';
 import { CartItem, cartDl } from '~/services/data/cart.dl';
-import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '~/context/AuthContext';
-import Loading from '~/components/Loading';
 
 const cartApi = new CartApi(cartDl);
 
@@ -42,13 +43,13 @@ const Page = () => {
   if (isFetching) return <Loading />;
   return (
     <View flex={1} flexDirection="column" alignItems="center">
-      <Text pt={10} fontSize={30} color={'black'}>
+      <Text pt={10} fontSize={30} color="black">
         Your Cart:
       </Text>
-      <Separator width={'80%'} marginVertical={15} />
+      <Separator width="80%" marginVertical={15} />
       <ScrollView
-        width={'100%'}
-        height={'80%'}
+        width="100%"
+        height="80%"
         contentContainerStyle={{
           display: 'flex',
           justifyContent: 'center',
@@ -69,7 +70,7 @@ const Page = () => {
           </YStack>
         )}
       </ScrollView>
-      <Separator width={'80%'} marginVertical={15} />
+      <Separator width="80%" marginVertical={15} />
       <Button
         mt={30}
         width={300}

@@ -9,7 +9,8 @@
     "start": "expo start --tunnel",
     "web": "expo start --web",
     "test": "jest",
-    "lint": "eslint .",
+    "lint": "eslint ./ --ext .ts,.tsx",
+    "lint:fix": "eslint ./ --ext .ts,.tsx --fix",
     "lint:formatting": "prettier --check **/*",
     "lint:formatting:fix": "prettier --write **/*"
   },

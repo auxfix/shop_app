@@ -1,5 +1,5 @@
-import { CartItem, cartDl } from '~/services/data/cart.dl';
 import { CartApi } from '~/services/api/cart.api';
+import { CartItem, cartDl } from '~/services/data/cart.dl';
 
 const cartApi = new CartApi(cartDl);
 

@@ -1,16 +1,16 @@
-import { Button, Card, Paragraph, View, YStack, Text, Separator } from 'tamagui';
+import { useQuery } from '@tanstack/react-query';
 import { router, useLocalSearchParams } from 'expo-router';
 import Animated from 'react-native-reanimated';
-import { ProductsApi } from '~/services/api/products.api';
-import { CartApi } from '~/services/api/cart.api';
+import { Button, Card, Paragraph, View, YStack, Text, Separator } from 'tamagui';
 
+import Loading from '~/components/Loading';
+import { useAuth } from '~/context/AuthContext';
+import { queryClient } from '~/queryClient';
+import { CartApi } from '~/services/api/cart.api';
+import { ProductsApi } from '~/services/api/products.api';
 import { cartDl } from '~/services/data/cart.dl';
 import { productDl } from '~/services/data/products.dl';
-import { useQuery } from '@tanstack/react-query';
-import { queryClient } from '~/queryClient';
-import { useAuth } from '~/context/AuthContext';
 import { productImages } from '~/utils/images.utils';
-import Loading from '~/components/Loading';
 
 const cartApi = new CartApi(cartDl);
 const productApi = new ProductsApi(productDl);
@@ -40,8 +40,8 @@ const Page = () => {
   }
 
   return (
-    <View flexDirection="column" alignItems="center" justifyContent="center" height={'100%'}>
-      <Separator width={'80%'} marginVertical={20} />
+    <View flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+      <Separator width="80%" marginVertical={20} />
       <Card
         elevate
         width={300}
@@ -50,7 +50,7 @@ const Page = () => {
         borderRadius={10}
         hoverStyle={{ scale: 0.925 }}
         pressStyle={{ scale: 0.975 }}
-        animation={'bouncy'}>
+        animation="bouncy">
         <Card.Header p={0}>
           <Animated.Image
             source={productImages[data?.img!]}
@@ -61,16 +61,16 @@ const Page = () => {
         </Card.Header>
         <Card.Footer p={8}>
           <YStack>
-            <Text fontSize={20} color={'lightblue'}>
+            <Text fontSize={20} color="lightblue">
               {data?.name}
             </Text>
-            <Paragraph theme={'alt2'}>{data?.description}</Paragraph>
-            <Paragraph theme={'alt2'}>{'SKU: ' + data?.sku}</Paragraph>
-            <Paragraph theme={'alt2'}>{'Price: ' + data?.price + '$'}</Paragraph>
+            <Paragraph theme="alt2">{data?.description}</Paragraph>
+            <Paragraph theme="alt2">{'SKU: ' + data?.sku}</Paragraph>
+            <Paragraph theme="alt2">{'Price: ' + data?.price + '$'}</Paragraph>
           </YStack>
         </Card.Footer>
       </Card>
-      <Separator width={'80%'} marginVertical={20} />
+      <Separator width="80%" marginVertical={20} />
       <Button mt={20} width={300} onPress={() => addToCart()}>
         Add to cart
       </Button>

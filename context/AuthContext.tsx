@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { createContext, useContext, useState } from 'react';
+
 import { UsersApi } from '~/services/api/users.api';
 import { User, userDl } from '~/services/data/users.dl';
 
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }: any) => {
     if (user) {
       setAuthState({
         authenticated: true,
-        user: user,
+        user,
         role: user.role,
       });
       if (user.role === Role.USER) {

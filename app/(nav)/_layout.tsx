@@ -1,8 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Role, useAuth } from '../../context/AuthContext';
 import { useTheme } from 'tamagui';
+
+import { Role, useAuth } from '../../context/AuthContext';
 
 const DrawerLayout = () => {
   const { authState } = useAuth();

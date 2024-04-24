@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Input, Button, H2, useTheme } from 'tamagui';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
-import { useAuth } from '../context/AuthContext';
-import { SplashScreen, useRootNavigationState } from 'expo-router';
 import { useFonts } from 'expo-font';
+import { SplashScreen, useRootNavigationState } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { Input, Button, H2, useTheme } from 'tamagui';
+
+import { useAuth } from '../context/AuthContext';
 
 const Page = () => {
   const theme = useTheme();

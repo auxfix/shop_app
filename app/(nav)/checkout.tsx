@@ -1,18 +1,18 @@
-import { View, Input, Button, Card, useTheme, Paragraph, Separator } from 'tamagui';
+import { useQuery } from '@tanstack/react-query';
 import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { View, Input, Button, Card, useTheme, Paragraph, Separator } from 'tamagui';
+
+import Loading from '~/components/Loading';
+import { useAuth } from '~/context/AuthContext';
+import { queryClient } from '~/queryClient';
 import { CartApi } from '~/services/api/cart.api';
 import { OrderApi } from '~/services/api/orders.api';
-import { useQuery } from '@tanstack/react-query';
-import { queryClient } from '~/queryClient';
-import { useCallback, useEffect, useState } from 'react';
-
 import { cartDl } from '~/services/data/cart.dl';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { orderDl } from '~/services/data/orders.dl';
-import { useAuth } from '~/context/AuthContext';
 import { Title } from '~/tamagui.config';
 import { validateEmail } from '~/utils/email.validator';
-import Loading from '~/components/Loading';
 
 const cartApi = new CartApi(cartDl);
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
@@ -54,7 +54,7 @@ const Page = () => {
   async function checkout() {
     if (!isValid) return;
     await orderApi.addOrder({
-      email: email,
+      email,
       firstName: name,
       lastName: secondName,
       totalPrice: price,
@@ -79,16 +79,16 @@ const Page = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      height={'100%'}
-      width={'100%'}>
+      height="100%"
+      width="100%">
       <Title mb={20}>Checkout:</Title>
-      <Card width={'90%'} height={280} p={10}>
+      <Card width="90%" height={280} p={10}>
         <Input
           focusStyle={{ borderColor: !name ? theme.red7 : theme.blue7 }}
           borderColor={!name ? theme.red7 : theme.blue7}
           my={5}
           value={name}
-          placeholder={`Firts Name`}
+          placeholder="Firts Name"
           onChangeText={(newText) => setName(newText)}
         />
         <Input
@@ -96,7 +96,7 @@ const Page = () => {
           borderColor={!secondName ? theme.red7 : theme.blue7}
           my={5}
           value={secondName}
-          placeholder={`Last Name`}
+          placeholder="Last Name"
           onChangeText={(newText) => setSecondName(newText)}
         />
         <Input
@@ -104,32 +104,32 @@ const Page = () => {
           borderColor={!email || !isValidEmail ? theme.red7 : theme.blue7}
           my={5}
           value={email}
-          placeholder={`Email`}
+          placeholder="Email"
           onChangeText={(newText) => setEmail(newText)}
         />
-        <Separator width={'50%'} marginVertical={15} />
-        <Paragraph mt={10} size={'$4'}>
+        <Separator width="50%" marginVertical={15} />
+        <Paragraph mt={10} size="$4">
           {'PRICE: ' + price + '$'}
         </Paragraph>
       </Card>
       {!isValid && (
-        <Paragraph mt={15} color={theme.red7} size={'$4'}>
+        <Paragraph mt={15} color={theme.red7} size="$4">
           Please provide all required data...
         </Paragraph>
       )}
       {!isValidEmail && (
-        <Paragraph mt={5} color={theme.red7} size={'$4'}>
+        <Paragraph mt={5} color={theme.red7} size="$4">
           Please provide a valid email...
         </Paragraph>
       )}
       <Button
         mt={20}
-        width={'88%'}
+        width="88%"
         backgroundColor={isValid ? theme.blue5 : theme.red7}
         onPress={async () => await checkout()}>
         Checkout
       </Button>
-      <Button mt={20} width={'88%'} backgroundColor={theme.blue5} onPress={navigateBack}>
+      <Button mt={20} width="88%" backgroundColor={theme.blue5} onPress={navigateBack}>
         Cancel
       </Button>
     </View>

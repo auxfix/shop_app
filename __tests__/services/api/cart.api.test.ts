@@ -1,6 +1,6 @@
+import { CartApi } from '~/services/api/cart.api';
 import { CartItem } from '~/services/data/cart.dl';
 import { fakeCartDl } from '~/services/data/fake/cart.fake.dl';
-import { CartApi } from '~/services/api/cart.api';
 
 const USER_ID = 1;
 

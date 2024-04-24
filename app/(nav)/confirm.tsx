@@ -1,5 +1,6 @@
-import { Button, Paragraph, View, SizableText } from 'tamagui';
 import { router } from 'expo-router';
+import { Button, Paragraph, View, SizableText } from 'tamagui';
+
 import { queryClient } from '~/queryClient';
 
 const Page = () => {
@@ -9,11 +10,11 @@ const Page = () => {
   }
 
   return (
-    <View flexDirection="column" alignItems="center" justifyContent="center" height={'100%'}>
-      <SizableText size={'$10'} mb={30} color={'fff'}>
+    <View flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+      <SizableText size="$10" mb={30} color="fff">
         Amazing!
       </SizableText>
-      <Paragraph textAlign="center" size={'$7'} color={'fff'} w={'80%'}>
+      <Paragraph textAlign="center" size="$7" color="fff" w="80%">
         We will deliver your products in the next 6-8 hours!
       </Paragraph>
       <Button mt={60} width={300} onPress={backToShopping}>

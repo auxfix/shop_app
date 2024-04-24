@@ -1,10 +1,9 @@
-import { Stack } from 'expo-router';
-import { AuthProvider } from '../context/AuthContext';
-import { queryClient } from '../queryClient';
 import { QueryClientProvider } from '@tanstack/react-query';
-
+import { Stack } from 'expo-router';
 import { TamaguiProvider, Theme, useTheme } from 'tamagui';
 
+import { AuthProvider } from '../context/AuthContext';
+import { queryClient } from '../queryClient';
 import config from '../tamagui.config';
 
 const StackLayout = () => {
@@ -29,7 +28,7 @@ const RootLayoutNav = () => {
     <TamaguiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <Theme name={'blue'}>
+          <Theme name="blue">
             <StackLayout />
           </Theme>
         </AuthProvider>

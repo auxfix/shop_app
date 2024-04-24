@@ -7,8 +7,8 @@ export default function Loading() {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      width={'100%'}
-      height={'100%'}>
+      width="100%"
+      height="100%">
       <Spinner size="large" color="$blue8" />
     </View>
   );

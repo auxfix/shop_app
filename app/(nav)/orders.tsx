@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import { router } from 'expo-router';
 import {
   Text,
   View,
@@ -10,15 +12,14 @@ import {
   useTheme,
   Separator,
 } from 'tamagui';
-import { router } from 'expo-router';
+
+import Loading from '~/components/Loading';
 import { CartApi } from '~/services/api/cart.api';
-import { CartItem, cartDl } from '~/services/data/cart.dl';
-import { useQuery } from '@tanstack/react-query';
 import { OrderApi } from '~/services/api/orders.api';
+import { CartItem, cartDl } from '~/services/data/cart.dl';
 import { orderItemsDl } from '~/services/data/order.itm.dl';
 import { Order, orderDl } from '~/services/data/orders.dl';
 import { Title } from '~/tamagui.config';
-import Loading from '~/components/Loading';
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 
@@ -45,10 +46,10 @@ const Page = () => {
       <Title mt={10} animation="quick">
         Orders
       </Title>
-      <Separator width={'80%'} marginVertical={15} />
+      <Separator width="80%" marginVertical={15} />
       <ScrollView
-        width={'100%'}
-        height={'80%'}
+        width="100%"
+        height="80%"
         contentContainerStyle={{
           display: 'flex',
           justifyContent: 'center',
@@ -72,7 +73,7 @@ const Page = () => {
           </YStack>
         )}
       </ScrollView>
-      <Separator width={'80%'} marginVertical={15} />
+      <Separator width="80%" marginVertical={15} />
     </View>
   );
 };
