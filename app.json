@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "My Shop",
-    "slug": "my_shop",
+    "name": "My Shop App",
+    "slug": "my_shop_app",
     "version": "1.0.1",
-    "scheme": "my_shop",
+    "scheme": "myshop",
     "web": {
       "bundler": "metro",
       "output": "static",
