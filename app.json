@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "My Shop App",
-    "slug": "my_shop_app",
+    "slug": "my-shop-app",
     "version": "1.0.1",
     "scheme": "myshop",
     "web": {
@@ -43,8 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "f149220b-af6f-4f62-9b75-6a4fec73e915"
+        "projectId": "1a1edac2-6f28-4074-af2e-0a318ba2e98f"
       }
-    }
+    },
+    "owner": "rtx_olg"
   }
 }
