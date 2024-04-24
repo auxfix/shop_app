@@ -18,6 +18,7 @@ import { OrderApi } from '~/services/api/orders.api';
 import { cartDl } from '~/services/data/cart.dl';
 import { OrderItem, orderItemsDl } from '~/services/data/order.itm.dl';
 import { orderDl } from '~/services/data/orders.dl';
+import { Title } from '~/tamagui.config';
 
 const orderApi = new OrderApi(orderDl, orderItemsDl, cartDl);
 

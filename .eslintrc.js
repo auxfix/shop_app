@@ -3,6 +3,6 @@ module.exports = {
   extends: ['universe/native'],
   rules: {
     'react-hooks/exhaustive-deps': 'warn',
-    'eqeqeq': 0,
+    eqeqeq: 0,
   },
 };
