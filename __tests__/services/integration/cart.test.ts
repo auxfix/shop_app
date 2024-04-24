@@ -3,28 +3,27 @@ import { CartApi } from '~/services/api/cart.api';
 
 const cartApi = new CartApi(cartDl);
 
-const USER_ID = 1
+const USER_ID = 1;
 
 const TEST_CART_ITEMS: CartItem[] = [
-  { 
+  {
     price: 1.2,
     productId: 1,
     productName: 'Banana',
     userId: USER_ID,
   },
-  { 
+  {
     price: 1.4,
     productId: 1,
     productName: 'Potato',
     userId: USER_ID,
-  }
-]
+  },
+];
 
 describe('Integration -> Cart', () => {
-
   beforeEach(async () => {
     await cartApi.cleanCart(USER_ID);
-  })
+  });
 
   it('Init cart should be empty', async () => {
     const cart = await cartApi.getCartByUserId(USER_ID);

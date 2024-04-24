@@ -7,11 +7,11 @@ export interface Order {
   email: string;
 }
 
-export class OrdersDl{
+export class OrdersDl {
   private orders: Order[];
-  
-  constructor(){
-    this.orders=[];
+
+  constructor() {
+    this.orders = [];
   }
 
   async findAll(): Promise<Order[]> {
@@ -19,11 +19,11 @@ export class OrdersDl{
   }
 
   async findByOrderId(orderId: number): Promise<Order> {
-    return this.orders.filter(o => o.id === orderId)[0];
+    return this.orders.filter((o) => o.id === orderId)[0];
   }
 
   async addOrder(order: Order): Promise<Order> {
-    const lastOrderId = this.orders.sort((oA, oB) => oA.id! - oB.id!)[this.orders.length -1]?.id;
+    const lastOrderId = this.orders.sort((oA, oB) => oA.id! - oB.id!)[this.orders.length - 1]?.id;
     order.id = (lastOrderId ? lastOrderId : 0) + 1;
     this.orders.push(order);
 

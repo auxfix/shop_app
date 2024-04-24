@@ -1,7 +1,6 @@
-import { Product, ProductDl } from "../data/products.dl";
+import { Product, ProductDl } from '../data/products.dl';
 
 export class ProductsApi {
-
   constructor(private productsDl: ProductDl) {}
 
   async getAll(): Promise<Product[]> {
@@ -10,7 +9,7 @@ export class ProductsApi {
   }
 
   async getDetails(productId: number): Promise<Product | undefined> {
-    const product = await this.productsDl.findProduct(productId)
+    const product = await this.productsDl.findProduct(productId);
     return product;
   }
 

@@ -1,8 +1,6 @@
-import { CartDl, CartItem } from "../data/cart.dl";
-
+import { CartDl, CartItem } from '../data/cart.dl';
 
 export class CartApi {
-
   private cartDl: CartDl;
 
   constructor(cartDl: CartDl) {

@@ -1,4 +1,4 @@
-import { User, UsersDl } from "../data/users.dl";
+import { User, UsersDl } from '../data/users.dl';
 
 export class UsersApi {
   constructor(private usersDl: UsersDl) {}

@@ -1,27 +1,26 @@
 import { CartItem, cartDl } from '~/services/data/cart.dl';
 
-const USER_ID = 1
+const USER_ID = 1;
 
 const TEST_CART_ITEMS: CartItem[] = [
-  { 
+  {
     price: 1.2,
     productId: 1,
     productName: 'Banana',
     userId: USER_ID,
   },
-  { 
+  {
     price: 1.4,
     productId: 1,
     productName: 'Potato',
     userId: USER_ID,
-  }
-]
+  },
+];
 
 describe('Data Layer -> Cart', () => {
-
   beforeEach(async () => {
     await cartDl.cleanCartByUserId(USER_ID);
-  })
+  });
 
   it('Init cart DL should be empty', async () => {
     const cart = await cartDl.getCartByUserId(USER_ID);

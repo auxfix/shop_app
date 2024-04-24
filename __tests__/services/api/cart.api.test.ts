@@ -4,17 +4,16 @@ import { CartApi } from '~/services/api/cart.api';
 
 const USER_ID = 1;
 
-const TEST_CART_ITEM: CartItem =  { 
-    price: 1.7,
-    productId: 5,
-    productName: 'Tomato',
-    userId: USER_ID,
+const TEST_CART_ITEM: CartItem = {
+  price: 1.7,
+  productId: 5,
+  productName: 'Tomato',
+  userId: USER_ID,
 };
 
 const cartApiWithFakeCartDl = new CartApi(fakeCartDl);
 
 describe('Api -> Cart', () => {
-
   it('Init Cart API should return fake data', async () => {
     const fakeCartData = fakeCartDl.getFakeCart();
     const fakeCartDataFromApi = await cartApiWithFakeCartDl.getCartByUserId(USER_ID);
@@ -27,10 +26,10 @@ describe('Api -> Cart', () => {
   });
 
   it('Cart Api can not change fake DL cart', async () => {
-     await cartApiWithFakeCartDl.addToCart(TEST_CART_ITEM);
-    
-     const fakeCartDataFromApi = await cartApiWithFakeCartDl.getCartByUserId(USER_ID);
-     expect(fakeCartDataFromApi.length).toEqual(2);
+    await cartApiWithFakeCartDl.addToCart(TEST_CART_ITEM);
+
+    const fakeCartDataFromApi = await cartApiWithFakeCartDl.getCartByUserId(USER_ID);
+    expect(fakeCartDataFromApi.length).toEqual(2);
   });
 
   it('Cart Api can clear fake DL cart', async () => {
