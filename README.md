@@ -2,7 +2,6 @@
 
 A React Native-based, simple groceries shop. 
 
-
 ### List of used libraries and technologies:
 
 * **[Expostack](https://createexpostack.com/):** A really good app bootstrapper, which allows you to create advanced boilerplates with a few keyboard clicks.
@@ -39,4 +38,11 @@ This approach enables you to achieve the following benefits:
 * Maintainability/Readability - A system comprised of small, well-structured pieces is much easier to read, develop, and maintain.
 
 * Testability - A system composed of small pieces is much easier to test, allowing for independent testing of its components.
+
+## Testing
+
+There are two types of tests in this application:
+
+* Unit Tests - These tests check separated pieces of API logic independently. API tests verify business controllers. Data tests evaluate the Data Layer by itself. The implementation of these tests is somewhat artificial because in real-life scenarios, Data Layer tests would be integration tests due to the external location of the data source. Similarly, API tests somewhat artificially assess the behavior of the API when interacting with a fake Data Layer API. However, these tests showcase two important aspects. First, they demonstrate how easily separate code modules can be tested. Second, they illustrate how you can simulate API functionality working with various data providers just by consuming appropriately prepared fake data layers, which can simulate all kinds of real life remote systems.
+* Integration - These tests evaluate the system as a whole. They validate the current business requirements of API simulation. So, these tests are the ones asked to provide in the task requirements, while the first ones were created solely for showcasing purposes.
 
