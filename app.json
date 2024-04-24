@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "My Shop App",
-    "slug": "my-shop-app",
+    "name": "My Shop",
+    "slug": "my-shop",
     "version": "1.0.1",
     "scheme": "myshop",
     "web": {
