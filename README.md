@@ -25,5 +25,18 @@ npm run start
 * ```npm run lint ``` - code style check
 * ```npm run lint:formatting ``` - check code formatting
 
-## Api and Data Layer solution
+## API and Data Layer Solution
+
+To simulate API calls, I have chosen a strategy commonly used in full-scale API services. There are two types of entities:
+
+* Data Layer - responsible for direct communication with the data source.
+* API - holds the business logic.
+
+This approach enables you to achieve the following benefits:
+
+* Decoupling - You can replace parts of the system, making it capable of working with different data sources very easily. This technique especially shines when used in conjunction with dependency injection/inversion of control (as seen in frameworks like Nest.js or Angular, for example).
+
+* Maintainability/Readability - A system comprised of small, well-structured pieces is much easier to read, develop, and maintain.
+
+* Testability - A system composed of small pieces is much easier to test, allowing for independent testing of its components.
 
