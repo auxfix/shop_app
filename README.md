@@ -1,6 +1,9 @@
 # My Shop 🛒
 
-A React Native-based, simple groceries shop. Here is a list of used libraries and technologies:
+A React Native-based, simple groceries shop. 
+
+
+### List of used libraries and technologies:
 
 * **[Expostack](https://createexpostack.com/):** A really good app bootstrapper, which allows you to create advanced boilerplates with a few keyboard clicks.
 * **[TanStack Query](https://tanstack.com/query/latest):** Quite powerful fetching and state management library. A good alternative to Redux when you do not need too much complexity.
